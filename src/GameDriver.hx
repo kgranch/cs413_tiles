@@ -102,7 +102,7 @@ class GameDriver extends Sprite {
 		addChild(mainScreen);
 		
 		// Set and display game title
-		gameTitleText = installGameText(0,0, "Template Game Title", "gameFont01", 55);
+		gameTitleText = installText(0,0, "Template Game Title", "gameFont01", 55);
 		addChild(gameTitleText);
 		
 		// Set and add start game button
@@ -125,7 +125,7 @@ class GameDriver extends Sprite {
 		addChild(gameScreen);
 		
 		// Set and display startgame title
-		var titleText:TextField = installGameText(0,0, "Game Goes Here", "gameFont01", 55);
+		var titleText:TextField = installText(0,0, "Game Goes Here", "gameFont01", 55);
 		addChild(titleText);
 	
 		// Set and add mainMenu button
@@ -143,7 +143,7 @@ class GameDriver extends Sprite {
 		addChild(tutorialScreen);
 		
 		// Set and display game tutorial title
-		var titleText:TextField = installGameText(0,0, "Tutorial Goes Here", "gameFont01", 55);
+		var titleText:TextField = installText(0,0, "Tutorial Goes Here", "gameFont01", 55);
 		addChild(titleText);
 	
 		// Set and add mainMenu button
@@ -161,7 +161,7 @@ class GameDriver extends Sprite {
 		addChild(creditsScreen);
 		
 		// Set and display game credits title
-		var titleText:TextField = installGameText(0,0, "Credits Goes Here", "gameFont01", 55);
+		var titleText:TextField = installText(0,0, "Credits Goes Here", "gameFont01", 55);
 		addChild(titleText);
 	
 		// Set and add mainMenu button
@@ -176,17 +176,17 @@ class GameDriver extends Sprite {
 		startGame();
 	}
 	
-	private function installGameText(x:Int, y:Int, myText:String, myFont:String, myFontsize:Int) {
-		var gameTitle:TextField;
+	private function installText(x:Int, y:Int, myText:String, myFont:String, myFontsize:Int) {
+		var gameText:TextField;
 		
-		gameTitle = new TextField(globalStage.stageWidth, 100, myText);
-		gameTitle.fontName = myFont;
-		gameTitle.fontSize = myFontsize;
-		gameTitle.color = 0xffffff;
-		gameTitle.x = x;
-		gameTitle.y = y;
+		gameText = new TextField(globalStage.stageWidth, 100, myText);
+		gameText.fontName = myFont;
+		gameText.fontSize = myFontsize;
+		gameText.color = 0xffffff;
+		gameText.x = x;
+		gameText.y = y;
 		
-		return gameTitle;
+		return gameText;
 	}
 	
 	/** Install start game button at (x,y) coordinates */

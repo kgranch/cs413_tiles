@@ -186,7 +186,7 @@ class GameDriver extends Sprite {
 		addChild(creditsScreen);
 		
 		// Set and display game credits title
-		titleText = installText(0,20, "Game Developers:", "creditsFont01", 55);
+		titleText = installText(0,20, "Game Developers", "creditsFont01", 55);
 		addChild(titleText);
 		
 		// Set and display game designers

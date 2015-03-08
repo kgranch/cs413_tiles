@@ -68,6 +68,8 @@ class GameDriver extends Sprite {
 		assets.enqueue("assets/gameFont01.png");
 		assets.enqueue("assets/creditsFont01.fnt");
 		assets.enqueue("assets/creditsFont01.png");
+		assets.enqueue("assets/tutorialFont01.fnt");
+		assets.enqueue("assets/tutorialFont01.png");
 	}
 
 	/** Function called from the initial driver, sets up the root class */
@@ -138,6 +140,11 @@ class GameDriver extends Sprite {
 
 	/** Display the rules menu */
 	private function viewTutorial() {
+		// local vars
+		var titleText:TextField;
+		var tutorialText:String = "";
+		var gameTutorialText:TextField;
+		
 		// Clear the stage
 		this.removeChildren();
 		
@@ -145,11 +152,20 @@ class GameDriver extends Sprite {
 		addChild(tutorialScreen);
 		
 		// Set and display game tutorial title
-		var titleText:TextField = installText(0,20, "Tutorial Goes Here", "gameFont01", 55);
+		titleText = installText(0,20, "Game Tutorial", "tutorialFont01", 55);
 		addChild(titleText);
+		
+		// Set and display game designers
+		tutorialText += "This is how you play the game.\n";
+		tutorialText += "  1. Do this...\n";
+		tutorialText += "  2. Then do this...\n";
+		tutorialText += "  3. Finally, you have to...\n";
+		
+		gameTutorialText = installText(100,200, tutorialText, "tutorialFont01", 25, "left");
+		addChild(gameTutorialText);
 	
 		// Set and add mainMenu button
-		mainMenuButton = installMainMenuButton(525, 550);
+		mainMenuButton = installMainMenuButton(590, 550);
 		addChild(mainMenuButton);
 		return;
 	}
@@ -159,6 +175,7 @@ class GameDriver extends Sprite {
 		// local vars
 		var titleText:TextField;
 		var designerText:String = "";
+		var gameDesignerText:TextField;
 		
 		// Clear the stage
 		this.removeChildren();
@@ -177,7 +194,7 @@ class GameDriver extends Sprite {
 		designerText += "Matthew Ostovarpour\n";
 		designerText += "Brian Saganey\n";
 		
-		var gameDesignerText:TextField = installText(0,200, designerText, "creditsFont01", 35, "center");
+		gameDesignerText = installText(0,200, designerText, "creditsFont01", 35, "center");
 		addChild(gameDesignerText);
 	
 		// Set and add mainMenu button

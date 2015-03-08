@@ -66,6 +66,8 @@ class GameDriver extends Sprite {
 		// game font
 		assets.enqueue("assets/gameFont01.fnt");
 		assets.enqueue("assets/gameFont01.png");
+		assets.enqueue("assets/mainMenuFont01.fnt");
+		assets.enqueue("assets/mainMenuFont01.png");
 		assets.enqueue("assets/creditsFont01.fnt");
 		assets.enqueue("assets/creditsFont01.png");
 		assets.enqueue("assets/tutorialFont01.fnt");
@@ -106,7 +108,7 @@ class GameDriver extends Sprite {
 		addChild(mainScreen);
 		
 		// Set and display game title
-		gameTitleText = installText(0,20, "Template Game Title", "gameFont01", 55);
+		gameTitleText = installText(0,20, "The Hipster's Great Adventure", "mainMenuFont01", 55);
 		addChild(gameTitleText);
 		
 		// Set and add start game button

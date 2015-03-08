@@ -3,10 +3,10 @@ import flash.display.Sprite;
 import flash.geom.Rectangle;
 import starling.core.Starling;
 
-@:bitmap("assets/loadingimage.png")
-class LoadingBitmapData extends flash.display.BitmapData {}
+@:bitmap("assets/loadingScreen.png")
+class LoadingBitmapData extends flash.display.BitmapData { }
 
-class Startup extends Sprite {
+class GameLoader extends Sprite {
 
     public var loadingBitmap:Bitmap;
     public var startup:Sprite;
@@ -32,21 +32,21 @@ class Startup extends Sprite {
                     loadingBitmap.height = flash.Lib.current.stage.stageHeight;
                 }});
 
-		var mStarling = new Starling(Root, flash.Lib.current.stage);
+		var mStarling = new Starling(GameDriver, flash.Lib.current.stage);
 		mStarling.antiAliasing = 0;
-		function onRootCreated(event:Dynamic, root:Root) {
+		function onGameDriverCreated(event:Dynamic, root:GameDriver) {
 			mStarling.removeEventListener(starling.events.Event.ROOT_CREATED,
-			    onRootCreated);
-            root.start(this);
+			    onGameDriverCreated);
+            root.start(this, mStarling.stage);
             mStarling.start();
         }
         mStarling.addEventListener(starling.events.Event.ROOT_CREATED,
-		    onRootCreated);
+		    onGameDriverCreated);
     }
 
     static function main() {
         var stage = flash.Lib.current.stage;
-        stage.addChild(new Startup());
+        stage.addChild(new GameLoader());
     }
 
 }

@@ -66,6 +66,8 @@ class GameDriver extends Sprite {
 		// game font
 		assets.enqueue("assets/gameFont01.fnt");
 		assets.enqueue("assets/gameFont01.png");
+		assets.enqueue("assets/creditsFont01.fnt");
+		assets.enqueue("assets/creditsFont01.png");
 	}
 
 	/** Function called from the initial driver, sets up the root class */
@@ -102,7 +104,7 @@ class GameDriver extends Sprite {
 		addChild(mainScreen);
 		
 		// Set and display game title
-		gameTitleText = installText(0,0, "Template Game Title", "gameFont01", 55);
+		gameTitleText = installText(0,20, "Template Game Title", "gameFont01", 55);
 		addChild(gameTitleText);
 		
 		// Set and add start game button
@@ -125,7 +127,7 @@ class GameDriver extends Sprite {
 		addChild(gameScreen);
 		
 		// Set and display startgame title
-		var titleText:TextField = installText(0,0, "Game Goes Here", "gameFont01", 55);
+		var titleText:TextField = installText(0,20, "Game Goes Here", "gameFont01", 55);
 		addChild(titleText);
 	
 		// Set and add mainMenu button
@@ -143,7 +145,7 @@ class GameDriver extends Sprite {
 		addChild(tutorialScreen);
 		
 		// Set and display game tutorial title
-		var titleText:TextField = installText(0,0, "Tutorial Goes Here", "gameFont01", 55);
+		var titleText:TextField = installText(0,20, "Tutorial Goes Here", "gameFont01", 55);
 		addChild(titleText);
 	
 		// Set and add mainMenu button
@@ -154,6 +156,10 @@ class GameDriver extends Sprite {
 	
 	/** Function to be called when looking at the credits menu*/
 	private function viewCredits() {
+		// local vars
+		var titleText:TextField;
+		var designerText:String = "";
+		
 		// Clear the stage
 		this.removeChildren();
 		
@@ -161,11 +167,21 @@ class GameDriver extends Sprite {
 		addChild(creditsScreen);
 		
 		// Set and display game credits title
-		var titleText:TextField = installText(0,0, "Credits Goes Here", "gameFont01", 55);
+		titleText = installText(0,20, "Game Developers:", "creditsFont01", 55);
 		addChild(titleText);
+		
+		// Set and display game designers
+		designerText += "Veronica Alves\n";
+		designerText += "Waylon Dixon\n";
+		designerText += "Kyle Granchelli\n";
+		designerText += "Matthew Ostovarpour\n";
+		designerText += "Brian Saganey\n";
+		
+		var gameDesignerText:TextField = installText(0,200, designerText, "creditsFont01", 35, "center");
+		addChild(gameDesignerText);
 	
 		// Set and add mainMenu button
-		mainMenuButton = installMainMenuButton(525, 550);
+		mainMenuButton = installMainMenuButton(590, 550);
 		addChild(mainMenuButton);	
 		return;
 	}
@@ -176,15 +192,17 @@ class GameDriver extends Sprite {
 		startGame();
 	}
 	
-	private function installText(x:Int, y:Int, myText:String, myFont:String, myFontsize:Int) {
+	private function installText(x:Int, y:Int, myText:String, myFont:String, myFontsize:Int, myHAlign:String="center", myVAlign:String="top") {
 		var gameText:TextField;
 		
-		gameText = new TextField(globalStage.stageWidth, 100, myText);
+		gameText = new TextField(globalStage.stageWidth, globalStage.stageHeight, myText);
 		gameText.fontName = myFont;
 		gameText.fontSize = myFontsize;
 		gameText.color = 0xffffff;
 		gameText.x = x;
 		gameText.y = y;
+		gameText.hAlign = myHAlign;
+		gameText.vAlign = myVAlign;
 		
 		return gameText;
 	}

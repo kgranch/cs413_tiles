@@ -108,7 +108,7 @@ class GameDriver extends Sprite {
 		addChild(mainScreen);
 		
 		// Set and display game title
-		gameTitleText = installText(0,20, "The Hipster's Great Adventure", "mainMenuFont01", 55);
+		gameTitleText = installText(0,20, "The Hipster's Great Adventure", "mainMenuFont01", 55, "center");
 		addChild(gameTitleText);
 		
 		// Set and add start game button
@@ -131,7 +131,7 @@ class GameDriver extends Sprite {
 		addChild(gameScreen);
 		
 		// Set and display startgame title
-		var titleText:TextField = installText(0,20, "Game Goes Here", "gameFont01", 55);
+		var titleText:TextField = installText(0,20, "Game Goes Here", "gameFont01", 55, "center");
 		addChild(titleText);
 	
 		// Set and add mainMenu button
@@ -154,7 +154,7 @@ class GameDriver extends Sprite {
 		addChild(tutorialScreen);
 		
 		// Set and display game tutorial title
-		titleText = installText(0,20, "Game Tutorial", "tutorialFont01", 55);
+		titleText = installText(0,20, "Game Tutorial", "tutorialFont01", 55, "center");
 		addChild(titleText);
 		
 		// Set and display game designers
@@ -163,7 +163,7 @@ class GameDriver extends Sprite {
 		tutorialText += "  2. Then do this...\n";
 		tutorialText += "  3. Finally, you have to...\n";
 		
-		gameTutorialText = installText(100,200, tutorialText, "tutorialFont01", 25, "left");
+		gameTutorialText = installText(100,200, tutorialText, "tutorialFont01", 25, "left", "bothDirections");
 		addChild(gameTutorialText);
 	
 		// Set and add mainMenu button
@@ -186,7 +186,7 @@ class GameDriver extends Sprite {
 		addChild(creditsScreen);
 		
 		// Set and display game credits title
-		titleText = installText(0,20, "Game Developers", "creditsFont01", 55);
+		titleText = installText(0,20, "Game Developers", "creditsFont01", 55, "center");
 		addChild(titleText);
 		
 		// Set and display game designers
@@ -211,17 +211,22 @@ class GameDriver extends Sprite {
 		startGame();
 	}
 	
-	private function installText(x:Int, y:Int, myText:String, myFont:String, myFontsize:Int, myHAlign:String="center", myVAlign:String="top") {
+	private function installText(x:Int, y:Int, myText:String, myFont:String, myFontsize:Int, myHAlign:String = "left", myAutoSize:String = "vertical") {
+		// local vars
 		var gameText:TextField;
+		
+		// note: possible values for parameters:
+		// myHAlign: left, right, center
+		// myAutoSize: vertical, horizontal, bothDirections, none
 		
 		gameText = new TextField(globalStage.stageWidth, globalStage.stageHeight, myText);
 		gameText.fontName = myFont;
 		gameText.fontSize = myFontsize;
 		gameText.color = 0xffffff;
+		gameText.hAlign = myHAlign;
+		gameText.autoSize = myAutoSize;
 		gameText.x = x;
 		gameText.y = y;
-		gameText.hAlign = myHAlign;
-		gameText.vAlign = myVAlign;
 		
 		return gameText;
 	}

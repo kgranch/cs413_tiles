@@ -159,9 +159,9 @@ class GameDriver extends Sprite {
 		
 		// Set and display game designers
 		tutorialText += "This is how you play the game.\n";
-		tutorialText += "  1. Do this...\n";
-		tutorialText += "  2. Then do this...\n";
-		tutorialText += "  3. Finally, you have to...\n";
+		tutorialText += "  1. Use the arrow keys to move the character and Space to jump.\n";
+		tutorialText += "  2. Collect the powerups along the way.\n";
+		tutorialText += "  3. Avoid death whenever possible.\n";
 		
 		gameTutorialText = installText(100,200, tutorialText, "tutorialFont01", 25, "left", "bothDirections");
 		addChild(gameTutorialText);

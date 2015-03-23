@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-up" width="100" height="20" tilewidth="16" tileheight="16" nextobjectid="1">
+ <tileset firstgid="1" name="dirtBlock" tilewidth="32" tileheight="32">
+  <image source="Users/Veronika/Documents/cs413_tiles/assets/dirtBlock.png" width="32" height="32"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="100" height="20">
+  <data encoding="base64" compression="zlib">
+   eJzt0UEOgCAQxVC8/6U9ARFGcBBek27lOy0FAAAA+D9XxVWZsW/EN9/ertZBj9h70Rs+dcjs0bJhhx6tDWb2aPnnnh6nORo3XrMHv++RvX1HI2Rv3tkesreeoA4kyYg3r78DtA==
+  </data>
+ </layer>
+</map>

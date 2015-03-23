@@ -25,6 +25,9 @@ class GameDriver extends Sprite {
   // Global assets manager
   public static var assets:AssetManager;
   
+  //buttons
+  var MainMenu:Button;
+  
   // sprites
   var Hippie:Sprite;
   var Grass:Sprite;
@@ -33,4 +36,13 @@ class GameDriver extends Sprite {
 }
 
 function onKeyDown(event:KeyboardEvent) {
+    if (event.keyCode == Keyboard.SPACE) {
+    
+    }
+    if (event.keyCode == Keyboard.LEFT){
+      
+    }
+    if (event.keyCode == Keyboard.RIGHT){
+      
+    }
 }

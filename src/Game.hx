@@ -31,3 +31,6 @@ class GameDriver extends Sprite {
   var GameOver:Sprite;
   var Mushroom:Sprite;
 }
+
+function onKeyDown(event:KeyboardEvent) {
+}

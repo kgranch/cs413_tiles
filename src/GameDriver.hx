@@ -73,6 +73,12 @@ class GameDriver extends Sprite {
 		assets.enqueue("assets/creditsFont01.png");
 		assets.enqueue("assets/tutorialFont01.fnt");
 		assets.enqueue("assets/tutorialFont01.png");
+
+		//tilemap
+		assets.enqueue("assets/tileset/skyone.png");
+		assets.enqueue("assets/tileset/skytwo.png");
+		assets.enqueue("assets/tileset/skythree.png");
+		assets.enqueue("assets/tileset/dirtBlock.png");
 	}
 
 	/** Function called from the initial driver, sets up the root class */

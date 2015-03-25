@@ -30,7 +30,7 @@ class GameDriver extends Sprite {
   public static var assets:AssetManager;
   
   //Initialize it immediately - VERY important to now move this.
-  var gi = new GameInput();
+  //var gi = new GameInput(); //Commenting out because we are not using a controller
   
   //score
   var Score:Text;
@@ -44,11 +44,9 @@ class GameDriver extends Sprite {
   var GameOver:Sprite;
   var Mushroom:Sprite;
   
-  gi.addEventListener("device_added", handleDeviceAdded);
+  //gi.addEventListener("device_added", handleDeviceAdded); //No game controller
 }
 
-function handleDeviceAdded(event:DeviceAdded) {
-}
 
 function onKeyDown(event:KeyboardEvent) {
     if (event.keyCode == Keyboard.SPACE) {

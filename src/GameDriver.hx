@@ -41,6 +41,8 @@ class GameDriver extends Sprite {
 	var creditsScreen:Image;
 	var tutorialScreen:Image;
 	var gameScreen:Image;
+
+	public var tm:Tilemap;
 	
 	/** Constructor */
 	public function new() {
@@ -127,17 +129,20 @@ class GameDriver extends Sprite {
 		// Clear the stage
 		this.removeChildren();
 		
-		gameScreen = new Image(GameDriver.assets.getTexture("gameScreen"));
-		addChild(gameScreen);
+		//gameScreen = new Image(GameDriver.assets.getTexture("gameScreen"));
+		//addChild(gameScreen);
 		
 		// Set and display startgame title
-		var titleText:TextField = installText(0,20, "Game Goes Here", "gameFont01", 55, "center");
-		addChild(titleText);
+		//var titleText:TextField = installText(0,20, "Game Goes Here", "gameFont01", 55, "center");
+		//addChild(titleText);
 	
 		// Set and add mainMenu button
-		mainMenuButton = installMainMenuButton(590, 550);
-		addChild(mainMenuButton);	
-		return;
+		//mainMenuButton = installMainMenuButton(590, 550);
+		//addChild(mainMenuButton);	
+		//return;
+
+		tm = new Tilemap(GameDriver.assets, "levelone");
+		addChild(tm);
 	}
 
 	/** Display the rules menu */

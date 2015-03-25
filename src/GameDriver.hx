@@ -41,7 +41,8 @@ class GameDriver extends Sprite {
 	var creditsScreen:Image;
 	var tutorialScreen:Image;
 	var gameScreen:Image;
-	
+	//For the tilemap
+	var tmx:TMXTileMap;
 	/** Constructor */
 	public function new() {
 		super();
@@ -108,7 +109,7 @@ class GameDriver extends Sprite {
 		addChild(mainScreen);
 		
 		// Set and display game title
-		gameTitleText = installText(0,20, "The Hipster's Great Adventure", "mainMenuFont01", 55, "center");
+		gameTitleText = installText(0,20, "The Hippie's Great Adventure", "mainMenuFont01", 55, "center");
 		addChild(gameTitleText);
 		
 		// Set and add start game button
@@ -122,6 +123,19 @@ class GameDriver extends Sprite {
 		addChild(creditsButton);
 	}
 	
+
+		//Loading the tilemap
+		tmx = new tmxTileMap();
+		tmx.addEventListener(Event.COMPLETE, drawLayers);
+		tmx.load("levelone.tmx");
+
+		public function drawLayers(event:Event):void
+        {
+                for (var i:int = 0; i < tmx.layers().length; i++)
+                {
+                        addChild(tmx.layers()[i].getHolder());
+                }
+        }
 	/** Function to be called when we are ready to start the game */
 	private function startGame() {
 		// Clear the stage
@@ -137,6 +151,7 @@ class GameDriver extends Sprite {
 		// Set and add mainMenu button
 		mainMenuButton = installMainMenuButton(590, 550);
 		addChild(mainMenuButton);	
+
 		return;
 	}
 

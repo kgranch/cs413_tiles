@@ -25,7 +25,7 @@ import flash.events.GameInputEvent;
 import starling.text.TextField;
 import flash.utils.Dictionary;
 
-class GameDriver extends Sprite {
+class Game extends Sprite {
   // Global assets manager
   public static var assets:AssetManager;
   

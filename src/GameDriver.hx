@@ -124,7 +124,8 @@ class GameDriver extends Sprite {
 	}
 	
 
-		//Loading the tilemap
+		//Loading the tilemap (This is from the Starling docs)
+	    /*
 		tmx = new tmxTileMap();
 		tmx.addEventListener(Event.COMPLETE, drawLayers);
 		tmx.load("levelone.tmx");
@@ -135,7 +136,8 @@ class GameDriver extends Sprite {
                 {
                         addChild(tmx.layers()[i].getHolder());
                 }
-        }
+        }*/
+
 	/** Function to be called when we are ready to start the game */
 	private function startGame() {
 		// Clear the stage

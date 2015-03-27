@@ -20,6 +20,8 @@ import flash.media.SoundChannel;
 import flash.media.SoundTransform;
 import starling.text.TextField;
 
+import MovieClipPlus;
+
 class GameDriver extends Sprite {
 	// Global assets manager
 	public static var assets:AssetManager;
@@ -79,6 +81,10 @@ class GameDriver extends Sprite {
 		assets.enqueue("assets/tileset/skytwo.png");
 		assets.enqueue("assets/tileset/skythree.png");
 		assets.enqueue("assets/tileset/dirtBlock.png");
+		
+		// game sprite atlas
+		assets.enqueue("assets/sprite_atlas.xml");
+		assets.enqueue("assets/sprite_atlas.png");
 	}
 
 	/** Function called from the initial driver, sets up the root class */
@@ -158,9 +164,32 @@ class GameDriver extends Sprite {
 	
 		// Set and add mainMenu button
 		mainMenuButton = installMainMenuButton(590, 550);
-		addChild(mainMenuButton);	
+		addChild(mainMenuButton);
+		
+		// Set and add hero character
+		var hero:MovieClipPlus = createHero();
+		hero.x = (globalStage.stageWidth - hero.width)/2;
+        hero.y = 220;
+        addChild(hero);
+		
+		hero.gotoAndPlay(0);
 
 		return;
+	}
+	
+	/** Install hero character movieclip at (x,y) coordinates */
+	function createHero() {
+		var cHero:MovieClipPlus;
+		
+		// Create hero character
+		var atlas = GameDriver.assets.getTextureAtlas("sprite_atlas");
+		cHero = new MovieClipPlus(atlas.getTextures("walking_guy"), 16);
+		Starling.juggler.add(cHero);
+        cHero.stop();
+		cHero.setNext(16, 0);
+		
+		// Return hero movieclip
+		return cHero;
 	}
 
 	/** Display the rules menu */

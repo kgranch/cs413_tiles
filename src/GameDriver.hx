@@ -184,6 +184,8 @@ class GameDriver extends Sprite {
 		// Create hero character
 		var atlas = GameDriver.assets.getTextureAtlas("sprite_atlas");
 		cHero = new MovieClipPlus(atlas.getTextures("walking_guy"), 16);
+		cHero.scaleX = 1/2;
+		cHero.scaleY = 1/2;
 		Starling.juggler.add(cHero);
         cHero.stop();
 		cHero.setNext(16, 0);

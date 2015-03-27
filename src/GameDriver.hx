@@ -44,7 +44,7 @@ class GameDriver extends Sprite {
 	var tutorialScreen:Image;
 	var gameScreen:Image;
 	//For the tilemap
-	var tmx:TMXTileMap;
+	var tmx:Tilemap;
 	/** Constructor */
 	public function new() {
 		super();
@@ -138,7 +138,7 @@ class GameDriver extends Sprite {
 
 		//Loading the tilemap (This is from the Starling docs)
 	    /*
-		tmx = new tmxTileMap();
+		tmx = new Tilemap();
 		tmx.addEventListener(Event.COMPLETE, drawLayers);
 		tmx.load("levelone.tmx");
 
@@ -165,6 +165,11 @@ class GameDriver extends Sprite {
 		// Set and add mainMenu button
 		mainMenuButton = installMainMenuButton(590, 550);
 		addChild(mainMenuButton);
+
+		//load tilemap
+
+		tmx = new Tilemap(GameDriver.assets, "levelone");
+		addChild(tmx);
 		
 		// Set and add hero character
 		var hero:MovieClipPlus = createHero();

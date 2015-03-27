@@ -77,10 +77,10 @@ class GameDriver extends Sprite {
 		assets.enqueue("assets/tutorialFont01.png");
 
 		//tilemap
-		assets.enqueue("assets/tileset/skyone.png");
-		assets.enqueue("assets/tileset/skytwo.png");
-		assets.enqueue("assets/tileset/skythree.png");
-		assets.enqueue("assets/tileset/dirtBlock.png");
+		assets.enqueue("assets/skyone.png");
+		assets.enqueue("assets/skytwo.png");
+		assets.enqueue("assets/skythree.png");
+		assets.enqueue("assets/dirtBlock.png");
 		
 		// game sprite atlas
 		assets.enqueue("assets/sprite_atlas.xml");

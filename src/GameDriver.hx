@@ -174,7 +174,7 @@ class GameDriver extends Sprite {
 		// Set and add hero character
 		var hero:MovieClipPlus = createHero();
 		hero.x = (globalStage.stageWidth - hero.width)/2;
-        hero.y = 220;
+        hero.y = 102;
         addChild(hero);
 		
 		hero.gotoAndPlay(0);
@@ -188,12 +188,12 @@ class GameDriver extends Sprite {
 		
 		// Create hero character
 		var atlas = GameDriver.assets.getTextureAtlas("sprite_atlas");
-		cHero = new MovieClipPlus(atlas.getTextures("walking_guy"), 16);
-		cHero.scaleX = 1/2;
-		cHero.scaleY = 1/2;
+		cHero = new MovieClipPlus(atlas.getTextures("walking_guy"), 6);
+		cHero.scaleX = .25;
+		cHero.scaleY = .25;
 		Starling.juggler.add(cHero);
         cHero.stop();
-		cHero.setNext(16, 0);
+		cHero.setNext(6, 0);
 		
 		// Return hero movieclip
 		return cHero;

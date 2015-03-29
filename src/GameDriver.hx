@@ -278,7 +278,7 @@ class GameDriver extends Sprite {
 	
 	function makeHeroDizzy() {
 		// make hero dizzy
-		hero.setNext(7, 7);
+		hero.setNext(8, 7);
 		hero.gotoAndPlay(7);
 	}
 	

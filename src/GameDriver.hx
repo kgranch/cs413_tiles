@@ -185,8 +185,17 @@ class GameDriver extends Sprite {
         hero.y = 102;
         addChild(hero);
 		
-		// go standing position
-		makeHeroStand();
+		// Set and add hero character
+		var badBot = createBadBot();
+		badBot.x = (globalStage.stageWidth - hero.width)/2 - 100;
+        badBot.y = 268;
+        addChild(badBot);
+		
+		// Set and add hero character
+		var goodBot = createGoodBot();
+		goodBot.x = (globalStage.stageWidth - hero.width)/2 + 100;
+        goodBot.y = 235;
+        addChild(goodBot);
         
         Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, 
         function(event:KeyboardEvent){
@@ -269,6 +278,38 @@ class GameDriver extends Sprite {
 		// make hero dizzy
 		hero.setNext(7, 7);
 		hero.gotoAndPlay(7);
+	}
+	
+	/** Install bad bot character movieclip at (x,y) coordinates */
+	function createBadBot() {
+		var cbot:MovieClipPlus;
+		
+		// Create hero character
+		var atlas = GameDriver.assets.getTextureAtlas("sprite_atlas");
+		cbot = new MovieClipPlus(atlas.getTextures("bad_bot"), 1);
+		cbot.scaleX = .35;
+		cbot.scaleY = .35;
+		Starling.juggler.add(cbot);
+        cbot.stop();
+		
+		// Return hero movieclip
+		return cbot;
+	}
+	
+	/** Install good bot character movieclip at (x,y) coordinates */
+	function createGoodBot() {
+		var cbot:MovieClipPlus;
+		
+		// Create hero character
+		var atlas = GameDriver.assets.getTextureAtlas("sprite_atlas");
+		cbot = new MovieClipPlus(atlas.getTextures("good_bot"), 1);
+		cbot.scaleX = .35;
+		cbot.scaleY = .35;
+		Starling.juggler.add(cbot);
+        cbot.stop();
+		
+		// Return hero movieclip
+		return cbot;
 	}
 
 	/** Display the rules menu */

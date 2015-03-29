@@ -44,7 +44,12 @@ class Game extends Sprite {
   var GameOver:Sprite;
   var Mushroom:Sprite;
   
+<<<<<<< Updated upstream
   //gi.addEventListener("device_added", handleDeviceAdded); //No game controller
+=======
+  
+  gi.addEventListener("device_added", handleDeviceAdded);
+>>>>>>> Stashed changes
 }
 
 

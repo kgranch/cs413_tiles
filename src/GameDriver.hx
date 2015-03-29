@@ -19,6 +19,8 @@ import flash.media.Sound;
 import flash.media.SoundChannel;
 import flash.media.SoundTransform;
 import starling.text.TextField;
+import starling.events.KeyboardEvent;
+import flash.ui.Keyboard;
 
 import MovieClipPlus;
 
@@ -31,6 +33,7 @@ class GameDriver extends Sprite {
 	
 	// In game text objects
 	public var gameTitleText:TextField;
+	
 	
 	// Interactive Buttons
 	var startButton:Button;
@@ -158,6 +161,8 @@ class GameDriver extends Sprite {
 		gameScreen = new Image(GameDriver.assets.getTexture("gameScreen"));
 		addChild(gameScreen);
 		
+		
+		
 		// Set and display startgame title
 		var titleText:TextField = installText(0,20, "Game Goes Here", "gameFont01", 55, "center");
 		addChild(titleText);
@@ -176,6 +181,24 @@ class GameDriver extends Sprite {
 		hero.x = (globalStage.stageWidth - hero.width)/2;
         hero.y = 102;
         addChild(hero);
+        
+        Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, 
+        function(event:KeyboardEvent){
+        	trace(event.keyCode);
+            if(event.keyCode == Keyboard.LEFT){
+                hero.x -= 10;			
+            }
+                        		
+            if(event.keyCode == Keyboard.RIGHT){
+            	hero.x += 10;
+            }
+            
+            if(event.keyCode == Keyboard.UP){
+            	hero.y += 20;
+            	hero.y -= 20;
+            }
+            
+            });
 		
 		hero.gotoAndPlay(0);
 

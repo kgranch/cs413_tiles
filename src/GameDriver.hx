@@ -52,6 +52,8 @@ class GameDriver extends Sprite {
 	
 	// Game Characters
 	var hero:MovieClipPlus;
+	var badBot:MovieClipPlus;
+	var goodBot:MovieClipPlus;
 	
 	/** Constructor */
 	public function new() {
@@ -186,13 +188,13 @@ class GameDriver extends Sprite {
         addChild(hero);
 		
 		// Set and add hero character
-		var badBot = createBadBot();
+		badBot = createBadBot();
 		badBot.x = (globalStage.stageWidth - hero.width)/2 - 100;
         badBot.y = 268;
         addChild(badBot);
 		
 		// Set and add hero character
-		var goodBot = createGoodBot();
+		goodBot = createGoodBot();
 		goodBot.x = (globalStage.stageWidth - hero.width)/2 + 100;
         goodBot.y = 235;
         addChild(goodBot);

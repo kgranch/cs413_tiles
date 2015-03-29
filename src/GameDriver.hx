@@ -46,8 +46,13 @@ class GameDriver extends Sprite {
 	var creditsScreen:Image;
 	var tutorialScreen:Image;
 	var gameScreen:Image;
-	//For the tilemap
+	
+	// For the tilemap
 	var tmx:Tilemap;
+	
+	// Game Characters
+	var hero:MovieClipPlus;
+	
 	/** Constructor */
 	public function new() {
 		super();
@@ -158,10 +163,9 @@ class GameDriver extends Sprite {
 		// Clear the stage
 		this.removeChildren();
 		
+		// Set and display game screen background
 		gameScreen = new Image(GameDriver.assets.getTexture("gameScreen"));
 		addChild(gameScreen);
-		
-		
 		
 		// Set and display startgame title
 		var titleText:TextField = installText(0,20, "Game Goes Here", "gameFont01", 55, "center");
@@ -171,36 +175,50 @@ class GameDriver extends Sprite {
 		mainMenuButton = installMainMenuButton(590, 550);
 		addChild(mainMenuButton);
 
-		//load tilemap
-
+		// Load tilemap
 		tmx = new Tilemap(GameDriver.assets, "levelone");
 		addChild(tmx);
 		
 		// Set and add hero character
-		var hero:MovieClipPlus = createHero();
+		hero = createHero();
 		hero.x = (globalStage.stageWidth - hero.width)/2;
         hero.y = 102;
         addChild(hero);
+		
+		// go standing position
+		makeHeroStand();
         
         Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, 
         function(event:KeyboardEvent){
         	trace(event.keyCode);
-            if(event.keyCode == Keyboard.LEFT){
+            if (event.keyCode == Keyboard.LEFT) {
+				// go to walking
+				makeHeroWalk();
+				
                 hero.x -= 10;			
             }
                         		
-            if(event.keyCode == Keyboard.RIGHT){
+            if (event.keyCode == Keyboard.RIGHT) {
+				// go to walking
+				makeHeroWalk();
+				
             	hero.x += 10;
             }
             
-            if(event.keyCode == Keyboard.UP){
+            if (event.keyCode == Keyboard.UP) {
+				// go to jump position
+				makeHeroJump();
+				
             	hero.y += 20;
             	hero.y -= 20;
             }
             
+            if (event.keyCode == Keyboard.DOWN) {
+				// go standing position
+				makeHeroStand();
+            }
+            
             });
-		
-		hero.gotoAndPlay(0);
 
 		return;
 	}
@@ -216,10 +234,27 @@ class GameDriver extends Sprite {
 		cHero.scaleY = .25;
 		Starling.juggler.add(cHero);
         cHero.stop();
-		cHero.setNext(6, 0);
 		
 		// Return hero movieclip
 		return cHero;
+	}
+	
+	function makeHeroWalk() {
+		// make hero walk
+		hero.setNext(4, 0);
+		hero.gotoAndPlay(4);
+	}
+	
+	function makeHeroStand() {
+		// make hero stand
+		hero.setNext(6, 6);
+		hero.gotoAndPlay(6);
+	}
+	
+	function makeHeroJump() {
+		// make hero jump
+		hero.setNext(5, 5);
+		hero.gotoAndPlay(5);
 	}
 
 	/** Display the rules menu */

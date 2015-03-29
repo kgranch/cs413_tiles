@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:613ab0ba01568712609fa73e5752e2f5:ec96423dc07f5cb9d5f346b843b91325:7d4d4c5ad445888e050228e156dc3d5e$ -->
+<!-- $TexturePacker:SmartUpdate:a5346e0d84fb2e13265d6e62c66c0a0f:dffab7b7ef53704d5b72b853d3f848f8:7d4d4c5ad445888e050228e156dc3d5e$ -->
 <TextureAtlas imagePath="sprite_atlas.png">
-    <SubTexture name="walking_guy0001" x="523" y="2" width="332" height="707" frameX="-63" frameY="-100" frameWidth="497" frameHeight="866"/>
-    <SubTexture name="walking_guy0002" x="249" y="2" width="272" height="712" frameX="-86" frameY="-100" frameWidth="497" frameHeight="866"/>
-    <SubTexture name="walking_guy0003" x="2" y="2" width="245" height="713" frameX="-113" frameY="-100" frameWidth="497" frameHeight="866"/>
-    <SubTexture name="walking_guy0004" x="857" y="2" width="255" height="706" frameX="-103" frameY="-100" frameWidth="497" frameHeight="866"/>
-    <SubTexture name="walking_guy0005" x="1114" y="2" width="245" height="706" frameX="-113" frameY="-100" frameWidth="497" frameHeight="866"/>
+    <SubTexture name="walking_guy0001" x="769" y="2" width="332" height="707" frameX="-63" frameY="-100" frameWidth="497" frameHeight="866"/>
+    <SubTexture name="walking_guy0002" x="495" y="2" width="272" height="712" frameX="-86" frameY="-100" frameWidth="497" frameHeight="866"/>
+    <SubTexture name="walking_guy0003" x="248" y="2" width="245" height="713" frameX="-113" frameY="-100" frameWidth="497" frameHeight="866"/>
+    <SubTexture name="walking_guy0004" x="1103" y="2" width="255" height="706" frameX="-103" frameY="-100" frameWidth="497" frameHeight="866"/>
+    <SubTexture name="walking_guy0005" x="1360" y="2" width="245" height="706" frameX="-113" frameY="-100" frameWidth="497" frameHeight="866"/>
+    <SubTexture name="walking_guy0006" x="1607" y="2" width="299" height="654" frameX="-72" frameY="-99" frameWidth="497" frameHeight="866"/>
+    <SubTexture name="walking_guy0007" x="2" y="2" width="244" height="716" frameX="-114" frameY="-99" frameWidth="497" frameHeight="866"/>
 </TextureAtlas>

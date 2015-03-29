@@ -206,8 +206,8 @@ class GameDriver extends Sprite {
             }
             
             if (event.keyCode == Keyboard.UP) {
-				// go to jump position
-				makeHeroJump();
+				// go to dizzy position
+				makeHeroDizzy();
 				
             	hero.y += 20;
             	hero.y -= 20;
@@ -216,6 +216,14 @@ class GameDriver extends Sprite {
             if (event.keyCode == Keyboard.DOWN) {
 				// go standing position
 				makeHeroStand();
+            }
+            
+            if (event.keyCode == Keyboard.SPACE) {
+				// go to jump position
+				makeHeroJump();
+				
+            	hero.y += 20;
+            	hero.y -= 20;
             }
             
             });
@@ -229,7 +237,7 @@ class GameDriver extends Sprite {
 		
 		// Create hero character
 		var atlas = GameDriver.assets.getTextureAtlas("sprite_atlas");
-		cHero = new MovieClipPlus(atlas.getTextures("walking_guy"), 6);
+		cHero = new MovieClipPlus(atlas.getTextures("walking_guy"), 8);
 		cHero.scaleX = .25;
 		cHero.scaleY = .25;
 		Starling.juggler.add(cHero);
@@ -255,6 +263,12 @@ class GameDriver extends Sprite {
 		// make hero jump
 		hero.setNext(5, 5);
 		hero.gotoAndPlay(5);
+	}
+	
+	function makeHeroDizzy() {
+		// make hero dizzy
+		hero.setNext(7, 7);
+		hero.gotoAndPlay(7);
 	}
 
 	/** Display the rules menu */

@@ -182,9 +182,13 @@ class GameDriver extends Sprite {
 		addChild(tmx);
 		
 		// Set and add hero character
+
 		hero = createHero();
 		hero.x = (globalStage.stageWidth - hero.width)/2;
         hero.y = 102;
+		var hero:MovieClipPlus = createHero();
+		hero.x = 20;
+        hero.y = 330;
         addChild(hero);
 		
 		// Set and add hero character
@@ -234,6 +238,8 @@ class GameDriver extends Sprite {
 				makeHeroJump();
 				
             	hero.y += 20;
+            	}
+            if(event.keyCode == Keyboard.UP){
             	hero.y -= 20;
             }
             
@@ -314,6 +320,11 @@ class GameDriver extends Sprite {
 		return cbot;
 	}
 
+	/** Check Collision */
+	private function checkCollision(texture1:Image, texture2:Image):Bool {
+        return (texture1.bounds.intersects(texture2.bounds));
+	}
+	
 	/** Display the rules menu */
 	private function viewTutorial() {
 		// local vars

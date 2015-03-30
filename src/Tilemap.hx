@@ -139,7 +139,7 @@ class Tilemap extends Sprite {
  
  
     for (layer in _layers) {
- 
+      renderOrder = RenderOrder.RightUp;
       // The default is renderOrder == RenderOrder.RightDown
       var xi = 0;
       var xf = mapWidth;
@@ -174,7 +174,7 @@ class Tilemap extends Sprite {
         yf = -1;
         dy = -1;
       }
- 
+
       var _x = xi;
       var _y = yi;
       while (_y != yf) {
@@ -187,7 +187,7 @@ class Tilemap extends Sprite {
             img.y = _y*tileHeight + 32;
             addChild(img);
           }
-          _x += dy;
+          _x += dx;
         }
         _x = xi;
         _y += dy;

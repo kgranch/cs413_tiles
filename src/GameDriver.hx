@@ -81,10 +81,11 @@ class GameDriver extends Sprite {
 		assets.enqueue("assets/tutorialFont01.png");
 
 		//tilemap
-		assets.enqueue("assets/tileset/skyone.png");
-		assets.enqueue("assets/tileset/skytwo.png");
-		assets.enqueue("assets/tileset/skythree.png");
-		assets.enqueue("assets/tileset/dirtBlock.png");
+		assets.enqueue("assets/skyone.png");
+		assets.enqueue("assets/skytwo.png");
+		assets.enqueue("assets/skythree.png");
+		assets.enqueue("assets/dirtBlock.png");
+		assets.enqueue("assets/cloud.png");
 		
 		// game sprite atlas
 		assets.enqueue("assets/sprite_atlas.xml");
@@ -114,7 +115,9 @@ class GameDriver extends Sprite {
 				}});
 			}
 		});
-	    /*Transitions.register("jump", function(ratio:Float):Float
+	    /*
+	    //Code for dat jumping goodness
+	    Transitions.register("jump", function(ratio:Float):Float
         {
                 return jump_transition(ratio);
         });
@@ -125,7 +128,8 @@ class GameDriver extends Sprite {
         Transitions.register("jump_down", function(ratio:Float):Float
         {
                 return 1-jump_transition(1/2+ratio/2);
-        });*/
+        });
+        */
 	}
 	
 	private static function jump_transition(ratio:Float):Float

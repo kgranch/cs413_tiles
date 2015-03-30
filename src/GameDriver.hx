@@ -187,6 +187,7 @@ class GameDriver extends Sprite {
 		hero.x = 20;
         hero.y = 330;
         addChild(hero);
+		makeHeroStand();
 		
 		// Set and add hero character
 		badBot = createBadBot();

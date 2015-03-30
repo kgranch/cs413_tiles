@@ -184,9 +184,6 @@ class GameDriver extends Sprite {
 		// Set and add hero character
 
 		hero = createHero();
-		hero.x = (globalStage.stageWidth - hero.width)/2;
-        hero.y = 102;
-		var hero:MovieClipPlus = createHero();
 		hero.x = 20;
         hero.y = 330;
         addChild(hero);

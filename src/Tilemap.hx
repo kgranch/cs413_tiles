@@ -175,8 +175,8 @@ class Tilemap extends Sprite {
         dy = -1;
       }
  
-      var _x = 0;
-      var _y = 0;
+      var _x = xi;
+      var _y = yi;
       while (_y != yf) {
         while (_x != xf) {
           var cell = layer.data[_y][_x];

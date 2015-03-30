@@ -46,6 +46,10 @@ class GameDriver extends Sprite {
 	//For the tilemap
 	var tmx:Tilemap;
 	/** Constructor */
+
+    //var for the jump function
+    var jump_tween:Tween;
+
 	public function new() {
 		super();
 	}
@@ -110,8 +114,26 @@ class GameDriver extends Sprite {
 				}});
 			}
 		});
+	    Transitions.register("jump", function(ratio:Float):Float
+        {
+                return jump_transition(ratio);
+        });
+        Transitions.register("jump_up", function(ratio:Float):Float
+        {
+                return jump_transition(ration / 2);
+        });
+        Transitions.register("jump_down", function(ratio:Float):Float
+        {
+                return 1-jump_transition(1/2+ratio/2);
+        });
 	}
 	
+	private static function jump_transition(ratio:Float):Float
+    {
+            var v:Float = 4.0;
+            var a:Float = -2*v;
+            return v*ratio + 1/2*a*ratio*ratio;
+    }
 	/** Do stuff with the menu screen */
 	private function startScreen() {
 		// Clear the stage

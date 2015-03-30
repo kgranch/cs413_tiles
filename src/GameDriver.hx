@@ -213,13 +213,13 @@ class GameDriver extends Sprite {
 		
 		// Set and add hero character
 		badBot = createBadBot();
-		badBot.x = (globalStage.stageWidth - hero.width)/2 - 100;
+		badBot.x = 100;
         badBot.y = 268;
         addChild(badBot);
 		
 		// Set and add hero character
 		goodBot = createGoodBot();
-		goodBot.x = (globalStage.stageWidth - hero.width)/2 + 100;
+		goodBot.x = 100;
         goodBot.y = 235;
         addChild(goodBot);
         
@@ -263,7 +263,7 @@ class GameDriver extends Sprite {
             	hero.y -= 20;
             }
             
-            });
+        });
 
 		return;
 	}

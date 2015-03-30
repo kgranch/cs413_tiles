@@ -19,8 +19,6 @@ import flash.media.Sound;
 import flash.media.SoundChannel;
 import flash.media.SoundTransform;
 import starling.text.TextField;
-import starling.events.KeyboardEvent;
-import flash.ui.Keyboard;
 
 import MovieClipPlus;
 
@@ -34,7 +32,6 @@ class GameDriver extends Sprite {
 	// In game text objects
 	public var gameTitleText:TextField;
 	
-	
 	// Interactive Buttons
 	var startButton:Button;
 	var mainMenuButton:Button;
@@ -46,15 +43,8 @@ class GameDriver extends Sprite {
 	var creditsScreen:Image;
 	var tutorialScreen:Image;
 	var gameScreen:Image;
-	
-	// For the tilemap
+	//For the tilemap
 	var tmx:Tilemap;
-	
-	// Game Characters
-	var hero:MovieClipPlus;
-	var badBot:MovieClipPlus;
-	var goodBot:MovieClipPlus;
-	
 	/** Constructor */
 
     //var for the jump function
@@ -91,10 +81,10 @@ class GameDriver extends Sprite {
 		assets.enqueue("assets/tutorialFont01.png");
 
 		//tilemap
-		assets.enqueue("assets/skyone.png");
-		assets.enqueue("assets/skytwo.png");
-		assets.enqueue("assets/skythree.png");
-		assets.enqueue("assets/dirtBlock.png");
+		assets.enqueue("assets/tileset/skyone.png");
+		assets.enqueue("assets/tileset/skytwo.png");
+		assets.enqueue("assets/tileset/skythree.png");
+		assets.enqueue("assets/tileset/dirtBlock.png");
 		
 		// game sprite atlas
 		assets.enqueue("assets/sprite_atlas.xml");
@@ -124,18 +114,18 @@ class GameDriver extends Sprite {
 				}});
 			}
 		});
-	    Transitions.register("jump", function(ratio:Float):Float
+	    /*Transitions.register("jump", function(ratio:Float):Float
         {
                 return jump_transition(ratio);
         });
         Transitions.register("jump_up", function(ratio:Float):Float
         {
-                return jump_transition(ration / 2);
+                return jump_transition(ratio / 2);
         });
         Transitions.register("jump_down", function(ratio:Float):Float
         {
                 return 1-jump_transition(1/2+ratio/2);
-        });
+        });*/
 	}
 	
 	private static function jump_transition(ratio:Float):Float
@@ -144,6 +134,7 @@ class GameDriver extends Sprite {
             var a:Float = -2*v;
             return v*ratio + 1/2*a*ratio*ratio;
     }
+
 	/** Do stuff with the menu screen */
 	private function startScreen() {
 		// Clear the stage
@@ -187,7 +178,6 @@ class GameDriver extends Sprite {
 		// Clear the stage
 		this.removeChildren();
 		
-		// Set and display game screen background
 		gameScreen = new Image(GameDriver.assets.getTexture("gameScreen"));
 		addChild(gameScreen);
 		
@@ -199,71 +189,18 @@ class GameDriver extends Sprite {
 		mainMenuButton = installMainMenuButton(590, 550);
 		addChild(mainMenuButton);
 
-		// Load tilemap
+		//load tilemap
+
 		tmx = new Tilemap(GameDriver.assets, "levelone");
 		addChild(tmx);
 		
 		// Set and add hero character
-
-		hero = createHero();
-		hero.x = 20;
-        hero.y = 330;
+		var hero:MovieClipPlus = createHero();
+		hero.x = (globalStage.stageWidth - hero.width)/2;
+        hero.y = 220;
         addChild(hero);
-		makeHeroStand();
 		
-		// Set and add hero character
-		badBot = createBadBot();
-		badBot.x = 100;
-        badBot.y = 268;
-        addChild(badBot);
-		
-		// Set and add hero character
-		goodBot = createGoodBot();
-		goodBot.x = 100;
-        goodBot.y = 235;
-        addChild(goodBot);
-        
-        Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, 
-        function(event:KeyboardEvent){
-        	trace(event.keyCode);
-            if (event.keyCode == Keyboard.LEFT) {
-				// go to walking
-				makeHeroWalk();
-				
-                hero.x -= 10;			
-            }
-                        		
-            if (event.keyCode == Keyboard.RIGHT) {
-				// go to walking
-				makeHeroWalk();
-				
-            	hero.x += 10;
-            }
-            
-            if (event.keyCode == Keyboard.UP) {
-				// go to dizzy position
-				makeHeroDizzy();
-				
-            	hero.y += 20;
-            	hero.y -= 20;
-            }
-            
-            if (event.keyCode == Keyboard.DOWN) {
-				// go standing position
-				makeHeroStand();
-            }
-            
-            if (event.keyCode == Keyboard.SPACE) {
-				// go to jump position
-				makeHeroJump();
-				
-            	hero.y += 20;
-            	}
-            if(event.keyCode == Keyboard.UP){
-            	hero.y -= 20;
-            }
-            
-        });
+		hero.gotoAndPlay(0);
 
 		return;
 	}
@@ -274,77 +211,17 @@ class GameDriver extends Sprite {
 		
 		// Create hero character
 		var atlas = GameDriver.assets.getTextureAtlas("sprite_atlas");
-		cHero = new MovieClipPlus(atlas.getTextures("walking_guy"), 8);
-		cHero.scaleX = .25;
-		cHero.scaleY = .25;
+		cHero = new MovieClipPlus(atlas.getTextures("walking_guy"), 16);
+		cHero.scaleX = 1/2;
+		cHero.scaleY = 1/2;
 		Starling.juggler.add(cHero);
         cHero.stop();
+		cHero.setNext(16, 0);
 		
 		// Return hero movieclip
 		return cHero;
 	}
-	
-	function makeHeroWalk() {
-		// make hero walk
-		hero.setNext(4, 0);
-		hero.gotoAndPlay(4);
-	}
-	
-	function makeHeroStand() {
-		// make hero stand
-		hero.setNext(6, 6);
-		hero.gotoAndPlay(6);
-	}
-	
-	function makeHeroJump() {
-		// make hero jump
-		hero.setNext(5, 5);
-		hero.gotoAndPlay(5);
-	}
-	
-	function makeHeroDizzy() {
-		// make hero dizzy
-		hero.setNext(8, 7);
-		hero.gotoAndPlay(7);
-	}
-	
-	/** Install bad bot character movieclip at (x,y) coordinates */
-	function createBadBot() {
-		var cbot:MovieClipPlus;
-		
-		// Create hero character
-		var atlas = GameDriver.assets.getTextureAtlas("sprite_atlas");
-		cbot = new MovieClipPlus(atlas.getTextures("bad_bot"), 1);
-		cbot.scaleX = .35;
-		cbot.scaleY = .35;
-		Starling.juggler.add(cbot);
-        cbot.stop();
-		
-		// Return hero movieclip
-		return cbot;
-	}
-	
-	/** Install good bot character movieclip at (x,y) coordinates */
-	function createGoodBot() {
-		var cbot:MovieClipPlus;
-		
-		// Create hero character
-		var atlas = GameDriver.assets.getTextureAtlas("sprite_atlas");
-		cbot = new MovieClipPlus(atlas.getTextures("good_bot"), 1);
-		cbot.scaleX = .35;
-		cbot.scaleY = .35;
-		Starling.juggler.add(cbot);
-        cbot.stop();
-		
-		// Return hero movieclip
-		return cbot;
-	}
 
-	/** Check Collision */
-	private function checkCollision(texture1:Image, texture2:Image):Bool {
-        return (texture1.bounds.intersects(texture2.bounds));
-	}
-	
 	/** Display the rules menu */
 	private function viewTutorial() {
 		// local vars

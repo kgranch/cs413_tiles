@@ -20,6 +20,8 @@ import flash.media.Sound;
 import flash.media.SoundChannel;
 import flash.media.SoundTransform;
 import starling.text.TextField;
+import starling.utils.RectangleUtil;
+import flash.geom.Rectangle;
 
 import MovieClipPlus;
 
@@ -208,7 +210,7 @@ class GameDriver extends Sprite {
 		// Set and add hero character
 		hero = createHero();
 		hero.x = 20;
-        hero.y = 330;
+        hero.y = 250;
         addChild(hero);
 		
 		// Set and add hero character
@@ -223,48 +225,92 @@ class GameDriver extends Sprite {
         goodBot.y = 235;
         addChild(goodBot);		
 		makeHeroStand();
+		
+		//var Bound1 = new Rectangle(0,448, 1040, 272);
+        var Bound1 = new Rectangle(0,478, 1040, 272);
+       // var Bound2 = new Rectangle(192,446, 848, 32);
+       	var Bound2 = new Rectangle(242,446, 758, 32);
+        var Bound3 = new Rectangle(306,414,694,32);
+        var Bound4 = new Rectangle(370,382,550,32);
+        var Bound5 = new Rectangle(498,318,230,64);
+        var Bound6 = new Rectangle(818,350,6,32);
+        var Bound7 = new Rectangle(1090,494,134,256);
+        var Bound8 = new Rectangle(1202,462,22,32);
+        var Bound9 = new Rectangle(1314,558,102,192);
+        var Bound10 = new Rectangle(1506,494,-10,256);
+        var Bound11 = new Rectangle(1586,414,6,336);
+        var Bound12 = new Rectangle(1682,334,22,416);
+        var Bound13 = new Rectangle(1794,254,-10,496);
+        var Bound14 = new Rectangle(1874,158,150,592);
+        var Bound15 = new Rectangle(2114,398,342,352);
+        var Bound16 = new Rectangle(2546,446,6,304);
+        var Bound17 = new Rectangle(2643,478,166,272);
+        var Bound18 = new Rectangle(2898,398,278,352);
+        var Bound19 = new Rectangle(3010,350,166,48);
         
-        Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, 
+   
+ 		Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, 
         function(event:KeyboardEvent){
-        	trace(event.keyCode);
-            if (event.keyCode == Keyboard.LEFT) {
-				// go to walking
-				makeHeroWalk();
-				
-                hero.x -= 10;			
+            if(event.keyCode == Keyboard.LEFT){
+            	//makeHeroWalk();
+            	hero.x -= 10;
+            	if(checkCollision(hero, Bound1)||checkCollision(hero, Bound2)||checkCollision(hero, Bound2)||
+            	checkCollision(hero, Bound3)||checkCollision(hero, Bound4)||checkCollision(hero, Bound5)||
+            	checkCollision(hero, Bound6)||checkCollision(hero, Bound7)||checkCollision(hero, Bound8)||
+            	checkCollision(hero, Bound9)||checkCollision(hero, Bound10)||checkCollision(hero, Bound11)||
+            	checkCollision(hero, Bound12)||checkCollision(hero, Bound13)||checkCollision(hero, Bound14)||
+            	checkCollision(hero, Bound15)||checkCollision(hero, Bound16)||checkCollision(hero, Bound17)||
+            	checkCollision(hero, Bound18)||checkCollision(hero, Bound19)){
+            		hero.x +=10;
+            		
+            		trace(event.keyCode);
+                }
             }
                         		
-            if (event.keyCode == Keyboard.RIGHT) {
-				// go to walking
-				makeHeroWalk();
-				
+            if(event.keyCode == Keyboard.RIGHT){
             	hero.x += 10;
+            	if(checkCollision(hero, Bound1)||checkCollision(hero, Bound2)||checkCollision(hero, Bound2)||
+            	checkCollision(hero, Bound3)||checkCollision(hero, Bound4)||checkCollision(hero, Bound5)||
+            	checkCollision(hero, Bound6)||checkCollision(hero, Bound7)||checkCollision(hero, Bound8)||
+            	checkCollision(hero, Bound9)||checkCollision(hero, Bound10)||checkCollision(hero, Bound11)||
+            	checkCollision(hero, Bound12)||checkCollision(hero, Bound13)||checkCollision(hero, Bound14)||
+            	checkCollision(hero, Bound15)||checkCollision(hero, Bound16)||checkCollision(hero, Bound17)||
+            	checkCollision(hero, Bound18)||checkCollision(hero, Bound19)){
+            		trace(event.keyCode);
+                	hero.x -= 10;
+                }
+        	}
+        	
+        	if(event.keyCode == Keyboard.UP){
+        		hero.y -= 10;
+            	if(checkCollision(hero, Bound1)||checkCollision(hero, Bound2)||checkCollision(hero, Bound2)||
+            	checkCollision(hero, Bound3)||checkCollision(hero, Bound4)||checkCollision(hero, Bound5)||
+            	checkCollision(hero, Bound6)||checkCollision(hero, Bound7)||checkCollision(hero, Bound8)||
+            	checkCollision(hero, Bound9)||checkCollision(hero, Bound10)||checkCollision(hero, Bound11)||
+            	checkCollision(hero, Bound12)||checkCollision(hero, Bound13)||checkCollision(hero, Bound14)||
+            	checkCollision(hero, Bound15)||checkCollision(hero, Bound16)||checkCollision(hero, Bound17)||
+            	checkCollision(hero, Bound18)||checkCollision(hero, Bound19)){
+            		trace(event.keyCode);
+                	hero.y += 10;
+                }
             }
             
-            if (event.keyCode == Keyboard.UP) {
-				// go to dizzy position
-				makeHeroDizzy();
-				
-            	hero.y += 20;
-            	hero.y -= 20;
-            }
-            
-            if (event.keyCode == Keyboard.DOWN) {
-				// go standing position
-				makeHeroStand();
-            }
-            
-            if (event.keyCode == Keyboard.SPACE) {
-				// go to jump position
-				makeHeroJump();
-				
-            	hero.y += 20;
-            	}
-            if(event.keyCode == Keyboard.UP){
-            	hero.y -= 20;
-            }
-            
-        });
+            if(event.keyCode == Keyboard.DOWN){
+            	hero.y += 10;
+            	if(checkCollision(hero, Bound1)||checkCollision(hero, Bound2)||checkCollision(hero, Bound2)||
+            	checkCollision(hero, Bound3)||checkCollision(hero, Bound4)||checkCollision(hero, Bound5)||
+            	checkCollision(hero, Bound6)||checkCollision(hero, Bound7)||checkCollision(hero, Bound8)||
+            	checkCollision(hero, Bound9)||checkCollision(hero, Bound10)||checkCollision(hero, Bound11)||
+            	checkCollision(hero, Bound12)||checkCollision(hero, Bound13)||checkCollision(hero, Bound14)||
+            	checkCollision(hero, Bound15)||checkCollision(hero, Bound16)||checkCollision(hero, Bound17)||
+            	checkCollision(hero, Bound18)||checkCollision(hero, Bound19)){
+            		trace(event.keyCode);
+                	hero.y -= 10;
+                }
+        	}
+        	
+            });
+
 
 		return;
 	}
@@ -339,10 +385,6 @@ class GameDriver extends Sprite {
 		return cbot;
 	}
 	
-	/** Check Collision */
-	private function checkCollision(texture1:Image, texture2:Image):Bool {
-        return (texture1.bounds.intersects(texture2.bounds));
-	}
 
 	/** Display the rules menu */
 	private function viewTutorial() {
@@ -496,4 +538,8 @@ class GameDriver extends Sprite {
 		// Return main menu button
 		return mmButton;
 	}
+		// Check Collision
+    private function checkCollision(texture1:Image, texture2:Rectangle):Bool {
+        return (texture1.bounds.intersects(texture2));
+    }
 }

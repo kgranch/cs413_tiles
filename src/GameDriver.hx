@@ -115,7 +115,7 @@ class GameDriver extends Sprite {
 				}});
 			}
 		});
-	    /*
+	    
 	    //Code for dat jumping goodness
 	    Transitions.register("jump", function(ratio:Float):Float
         {
@@ -129,7 +129,7 @@ class GameDriver extends Sprite {
         {
                 return 1-jump_transition(1/2+ratio/2);
         });
-        */
+        
 	}
 	
 	private static function jump_transition(ratio:Float):Float
@@ -137,6 +137,11 @@ class GameDriver extends Sprite {
             var v:Float = 4.0;
             var a:Float = -2*v;
             return v*ratio + 1/2*a*ratio*ratio;
+    }
+
+    private function jump_listener(e:KeyboardEvent)
+    {
+            removeEventListener(KeyboardEvent.//FINISH THIS
     }
 
 	/** Do stuff with the menu screen */

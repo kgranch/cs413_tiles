@@ -24,6 +24,7 @@ import starling.utils.RectangleUtil;
 import flash.geom.Rectangle;
 
 import MovieClipPlus;
+import Character;
 
 class GameDriver extends Sprite {
 	// Global assets manager
@@ -51,7 +52,7 @@ class GameDriver extends Sprite {
 	var tmx:Tilemap;
 	
 	// Game Characters
-	var hero:MovieClipPlus;
+	var hero:Character;
 	var badBot:MovieClipPlus;
 	var goodBot:MovieClipPlus;
 
@@ -208,27 +209,27 @@ class GameDriver extends Sprite {
 		addChild(tmx);
 		
 		// Set and add hero character
-		hero = createHero();
-		hero.x = 20;
-        hero.y = 250;
+		var atlas = GameDriver.assets.getTextureAtlas("sprite_atlas");
+		var hero:Character = new Character(atlas.getTextures("walking_guy"));
+		hero.initializeHero();
+		hero.makeStand();
         addChild(hero);
 		
-		// Set and add hero character
+		// Set and add badbot character
 		badBot = createBadBot();
 		badBot.x = 100;
         badBot.y = 268;
         addChild(badBot);
 		
-		// Set and add hero character
+		// Set and add goodbot character
 		goodBot = createGoodBot();
 		goodBot.x = 100;
         goodBot.y = 235;
-        addChild(goodBot);		
-		makeHeroStand();
-		
+        addChild(goodBot);
+			
 		//var Bound1 = new Rectangle(0,448, 1040, 272);
         var Bound1 = new Rectangle(0,478, 1040, 272);
-       // var Bound2 = new Rectangle(192,446, 848, 32);
+        // var Bound2 = new Rectangle(192,446, 848, 32);
        	var Bound2 = new Rectangle(242,446, 758, 32);
         var Bound3 = new Rectangle(306,414,694,32);
         var Bound4 = new Rectangle(370,382,550,32);
@@ -246,13 +247,12 @@ class GameDriver extends Sprite {
         var Bound16 = new Rectangle(2546,446,6,304);
         var Bound17 = new Rectangle(2643,478,166,272);
         var Bound18 = new Rectangle(2898,398,278,352);
-        var Bound19 = new Rectangle(3010,350,166,48);
-        
-   
+        var Bound19 = new Rectangle(3010, 350, 166, 48);
+		
  		Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, 
         function(event:KeyboardEvent){
             if(event.keyCode == Keyboard.LEFT){
-            	//makeHeroWalk();
+            	hero.makeWalk();
             	hero.x -= 10;
             	if(checkCollision(hero, Bound1)||checkCollision(hero, Bound2)||checkCollision(hero, Bound2)||
             	checkCollision(hero, Bound3)||checkCollision(hero, Bound4)||checkCollision(hero, Bound5)||
@@ -268,6 +268,7 @@ class GameDriver extends Sprite {
             }
                         		
             if(event.keyCode == Keyboard.RIGHT){
+            	hero.makeWalk();
             	hero.x += 10;
             	if(checkCollision(hero, Bound1)||checkCollision(hero, Bound2)||checkCollision(hero, Bound2)||
             	checkCollision(hero, Bound3)||checkCollision(hero, Bound4)||checkCollision(hero, Bound5)||
@@ -308,52 +309,11 @@ class GameDriver extends Sprite {
                 	hero.y -= 10;
                 }
         	}
-        	
             });
-
-
+			
 		return;
 	}
 	
-	/** Install hero character movieclip at (x,y) coordinates */
-	function createHero() {
-		var cHero:MovieClipPlus;
-		
-		// Create hero character
-		var atlas = GameDriver.assets.getTextureAtlas("sprite_atlas");
-		cHero = new MovieClipPlus(atlas.getTextures("walking_guy"), 8);
-		cHero.scaleX = .25;
-		cHero.scaleY = .25;
-		Starling.juggler.add(cHero);
-        cHero.stop();
-		
-		// Return hero movieclip
-		return cHero;
-	}function makeHeroWalk() {
-		// make hero walk
-		hero.setNext(4, 0);
-		hero.gotoAndPlay(4);
-	}
-	
-	function makeHeroStand() {
-		// make hero stand
-		hero.setNext(6, 6);
-		hero.gotoAndPlay(6);
-	}
-	
-	function makeHeroJump() {
-		// make hero jump
-		hero.setNext(5, 5);
-		hero.gotoAndPlay(5);
-	}
-	
-	function makeHeroDizzy() {
-		// make hero dizzy
-		hero.setNext(8, 7);
-		hero.gotoAndPlay(7);
-	}
-	
-	/** Install bad bot character movieclip at (x,y) coordinates */
 	function createBadBot() {
 		var cbot:MovieClipPlus;
 		
@@ -369,7 +329,6 @@ class GameDriver extends Sprite {
 		return cbot;
 	}
 	
-	/** Install good bot character movieclip at (x,y) coordinates */
 	function createGoodBot() {
 		var cbot:MovieClipPlus;
 		
@@ -384,7 +343,6 @@ class GameDriver extends Sprite {
 		// Return hero movieclip
 		return cbot;
 	}
-	
 
 	/** Display the rules menu */
 	private function viewTutorial() {
@@ -538,7 +496,8 @@ class GameDriver extends Sprite {
 		// Return main menu button
 		return mmButton;
 	}
-		// Check Collision
+	
+	// Check Collision
     private function checkCollision(texture1:Image, texture2:Rectangle):Bool {
         return (texture1.bounds.intersects(texture2));
     }

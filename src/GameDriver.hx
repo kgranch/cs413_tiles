@@ -150,7 +150,10 @@ class GameDriver extends Sprite {
 
     private function jump_listener(e:KeyboardEvent)
     {
-            removeEventListener(KeyboardEvent.//FINISH THIS
+            removeEventListener(KeyboardEvent.KEY_DOWN, jump_listener);
+            var jump_sound = assets.playSound("Jump.mp3", 150);
+            //hero_juggler.purge();
+            //hero.texture("");
     }
 
 	/** Do stuff with the menu screen */

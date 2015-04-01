@@ -8,6 +8,7 @@ import starling.display.Image;
 import starling.display.Quad;
 import starling.core.Starling;
 import starling.events.KeyboardEvent;
+import flash.ui.Keyboard;
 import starling.events.TouchEvent;
 import starling.events.TouchPhase;
 import starling.display.Button;
@@ -19,6 +20,8 @@ import flash.media.Sound;
 import flash.media.SoundChannel;
 import flash.media.SoundTransform;
 import starling.text.TextField;
+import starling.utils.RectangleUtil;
+import flash.geom.Rectangle;
 
 import MovieClipPlus;
 
@@ -43,13 +46,19 @@ class GameDriver extends Sprite {
 	var creditsScreen:Image;
 	var tutorialScreen:Image;
 	var gameScreen:Image;
+	
 	//For the tilemap
 	var tmx:Tilemap;
-	/** Constructor */
+	
+	// Game Characters
+	var hero:MovieClipPlus;
+	var badBot:MovieClipPlus;
+	var goodBot:MovieClipPlus;
 
     //var for the jump function
     var jump_tween:Tween;
-
+	
+	/** Constructor */
 	public function new() {
 		super();
 	}
@@ -123,7 +132,7 @@ class GameDriver extends Sprite {
         });
         Transitions.register("jump_up", function(ratio:Float):Float
         {
-                return jump_transition(ratio / 2);
+                return jump_transition(ratio/2);
         });
         Transitions.register("jump_down", function(ratio:Float):Float
         {
@@ -187,6 +196,7 @@ class GameDriver extends Sprite {
 		// Clear the stage
 		this.removeChildren();
 		
+		// Set and display game screen background
 		gameScreen = new Image(GameDriver.assets.getTexture("gameScreen"));
 		addChild(gameScreen);
 		
@@ -198,18 +208,114 @@ class GameDriver extends Sprite {
 		mainMenuButton = installMainMenuButton(590, 550);
 		addChild(mainMenuButton);
 
-		//load tilemap
-
+		// Load tilemap
 		tmx = new Tilemap(GameDriver.assets, "levelone");
 		addChild(tmx);
 		
 		// Set and add hero character
-		var hero:MovieClipPlus = createHero();
-		hero.x = (globalStage.stageWidth - hero.width)/2;
-        hero.y = 220;
+		hero = createHero();
+		hero.x = 20;
+        hero.y = 250;
         addChild(hero);
 		
-		hero.gotoAndPlay(0);
+		// Set and add hero character
+		badBot = createBadBot();
+		badBot.x = 100;
+        badBot.y = 268;
+        addChild(badBot);
+		
+		// Set and add hero character
+		goodBot = createGoodBot();
+		goodBot.x = 100;
+        goodBot.y = 235;
+        addChild(goodBot);		
+		makeHeroStand();
+		
+		//var Bound1 = new Rectangle(0,448, 1040, 272);
+        var Bound1 = new Rectangle(0,478, 1040, 272);
+       // var Bound2 = new Rectangle(192,446, 848, 32);
+       	var Bound2 = new Rectangle(242,446, 758, 32);
+        var Bound3 = new Rectangle(306,414,694,32);
+        var Bound4 = new Rectangle(370,382,550,32);
+        var Bound5 = new Rectangle(498,318,230,64);
+        var Bound6 = new Rectangle(818,350,6,32);
+        var Bound7 = new Rectangle(1090,494,134,256);
+        var Bound8 = new Rectangle(1202,462,22,32);
+        var Bound9 = new Rectangle(1314,558,102,192);
+        var Bound10 = new Rectangle(1506,494,-10,256);
+        var Bound11 = new Rectangle(1586,414,6,336);
+        var Bound12 = new Rectangle(1682,334,22,416);
+        var Bound13 = new Rectangle(1794,254,-10,496);
+        var Bound14 = new Rectangle(1874,158,150,592);
+        var Bound15 = new Rectangle(2114,398,342,352);
+        var Bound16 = new Rectangle(2546,446,6,304);
+        var Bound17 = new Rectangle(2643,478,166,272);
+        var Bound18 = new Rectangle(2898,398,278,352);
+        var Bound19 = new Rectangle(3010,350,166,48);
+        
+   
+ 		Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, 
+        function(event:KeyboardEvent){
+            if(event.keyCode == Keyboard.LEFT){
+            	//makeHeroWalk();
+            	hero.x -= 10;
+            	if(checkCollision(hero, Bound1)||checkCollision(hero, Bound2)||checkCollision(hero, Bound2)||
+            	checkCollision(hero, Bound3)||checkCollision(hero, Bound4)||checkCollision(hero, Bound5)||
+            	checkCollision(hero, Bound6)||checkCollision(hero, Bound7)||checkCollision(hero, Bound8)||
+            	checkCollision(hero, Bound9)||checkCollision(hero, Bound10)||checkCollision(hero, Bound11)||
+            	checkCollision(hero, Bound12)||checkCollision(hero, Bound13)||checkCollision(hero, Bound14)||
+            	checkCollision(hero, Bound15)||checkCollision(hero, Bound16)||checkCollision(hero, Bound17)||
+            	checkCollision(hero, Bound18)||checkCollision(hero, Bound19)){
+            		hero.x +=10;
+            		
+            		trace(event.keyCode);
+                }
+            }
+                        		
+            if(event.keyCode == Keyboard.RIGHT){
+            	hero.x += 10;
+            	if(checkCollision(hero, Bound1)||checkCollision(hero, Bound2)||checkCollision(hero, Bound2)||
+            	checkCollision(hero, Bound3)||checkCollision(hero, Bound4)||checkCollision(hero, Bound5)||
+            	checkCollision(hero, Bound6)||checkCollision(hero, Bound7)||checkCollision(hero, Bound8)||
+            	checkCollision(hero, Bound9)||checkCollision(hero, Bound10)||checkCollision(hero, Bound11)||
+            	checkCollision(hero, Bound12)||checkCollision(hero, Bound13)||checkCollision(hero, Bound14)||
+            	checkCollision(hero, Bound15)||checkCollision(hero, Bound16)||checkCollision(hero, Bound17)||
+            	checkCollision(hero, Bound18)||checkCollision(hero, Bound19)){
+            		trace(event.keyCode);
+                	hero.x -= 10;
+                }
+        	}
+        	
+        	if(event.keyCode == Keyboard.UP){
+        		hero.y -= 10;
+            	if(checkCollision(hero, Bound1)||checkCollision(hero, Bound2)||checkCollision(hero, Bound2)||
+            	checkCollision(hero, Bound3)||checkCollision(hero, Bound4)||checkCollision(hero, Bound5)||
+            	checkCollision(hero, Bound6)||checkCollision(hero, Bound7)||checkCollision(hero, Bound8)||
+            	checkCollision(hero, Bound9)||checkCollision(hero, Bound10)||checkCollision(hero, Bound11)||
+            	checkCollision(hero, Bound12)||checkCollision(hero, Bound13)||checkCollision(hero, Bound14)||
+            	checkCollision(hero, Bound15)||checkCollision(hero, Bound16)||checkCollision(hero, Bound17)||
+            	checkCollision(hero, Bound18)||checkCollision(hero, Bound19)){
+            		trace(event.keyCode);
+                	hero.y += 10;
+                }
+            }
+            
+            if(event.keyCode == Keyboard.DOWN){
+            	hero.y += 10;
+            	if(checkCollision(hero, Bound1)||checkCollision(hero, Bound2)||checkCollision(hero, Bound2)||
+            	checkCollision(hero, Bound3)||checkCollision(hero, Bound4)||checkCollision(hero, Bound5)||
+            	checkCollision(hero, Bound6)||checkCollision(hero, Bound7)||checkCollision(hero, Bound8)||
+            	checkCollision(hero, Bound9)||checkCollision(hero, Bound10)||checkCollision(hero, Bound11)||
+            	checkCollision(hero, Bound12)||checkCollision(hero, Bound13)||checkCollision(hero, Bound14)||
+            	checkCollision(hero, Bound15)||checkCollision(hero, Bound16)||checkCollision(hero, Bound17)||
+            	checkCollision(hero, Bound18)||checkCollision(hero, Bound19)){
+            		trace(event.keyCode);
+                	hero.y -= 10;
+                }
+        	}
+        	
+            });
+
 
 		return;
 	}
@@ -220,16 +326,70 @@ class GameDriver extends Sprite {
 		
 		// Create hero character
 		var atlas = GameDriver.assets.getTextureAtlas("sprite_atlas");
-		cHero = new MovieClipPlus(atlas.getTextures("walking_guy"), 16);
-		cHero.scaleX = 1/2;
-		cHero.scaleY = 1/2;
+		cHero = new MovieClipPlus(atlas.getTextures("walking_guy"), 8);
+		cHero.scaleX = .25;
+		cHero.scaleY = .25;
 		Starling.juggler.add(cHero);
         cHero.stop();
-		cHero.setNext(16, 0);
 		
 		// Return hero movieclip
 		return cHero;
+	}function makeHeroWalk() {
+		// make hero walk
+		hero.setNext(4, 0);
+		hero.gotoAndPlay(4);
 	}
+	
+	function makeHeroStand() {
+		// make hero stand
+		hero.setNext(6, 6);
+		hero.gotoAndPlay(6);
+	}
+	
+	function makeHeroJump() {
+		// make hero jump
+		hero.setNext(5, 5);
+		hero.gotoAndPlay(5);
+	}
+	
+	function makeHeroDizzy() {
+		// make hero dizzy
+		hero.setNext(8, 7);
+		hero.gotoAndPlay(7);
+	}
+	
+	/** Install bad bot character movieclip at (x,y) coordinates */
+	function createBadBot() {
+		var cbot:MovieClipPlus;
+		
+		// Create hero character
+		var atlas = GameDriver.assets.getTextureAtlas("sprite_atlas");
+		cbot = new MovieClipPlus(atlas.getTextures("bad_bot"), 1);
+		cbot.scaleX = .35;
+		cbot.scaleY = .35;
+		Starling.juggler.add(cbot);
+        cbot.stop();
+		
+		// Return hero movieclip
+		return cbot;
+	}
+	
+	/** Install good bot character movieclip at (x,y) coordinates */
+	function createGoodBot() {
+		var cbot:MovieClipPlus;
+		
+		// Create hero character
+		var atlas = GameDriver.assets.getTextureAtlas("sprite_atlas");
+		cbot = new MovieClipPlus(atlas.getTextures("good_bot"), 1);
+		cbot.scaleX = .35;
+		cbot.scaleY = .35;
+		Starling.juggler.add(cbot);
+        cbot.stop();
+		
+		// Return hero movieclip
+		return cbot;
+	}
+	
 
 	/** Display the rules menu */
 	private function viewTutorial() {
@@ -383,4 +543,8 @@ class GameDriver extends Sprite {
 		// Return main menu button
 		return mmButton;
 	}
+		// Check Collision
+    private function checkCollision(texture1:Image, texture2:Rectangle):Bool {
+        return (texture1.bounds.intersects(texture2));
+    }
 }

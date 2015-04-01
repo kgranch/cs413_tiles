@@ -154,7 +154,21 @@ class GameDriver extends Sprite {
             removeEventListener(KeyboardEvent.KEY_DOWN, jump_listener);
             var jump_sound = assets.playSound("Jump.mp3", 150);
             //hero_juggler.purge();
-            //hero.texture("");
+            hero.makeJump();
+            jump_tween = new Tween(hero, 1.2, "jump");
+            jump_tween.onComplete = function()
+            {
+                    addEventListener(KeyboardEvent.KEY_DOWN, jump_listener);
+                    animate_guy();
+            };
+            Starling.juggler.add(jump_tween);
+    }
+
+    private function animate_guy()
+    {
+            hero.makeJump();
+            var delay = 2.0;
+
     }
 
 	/** Do stuff with the menu screen */

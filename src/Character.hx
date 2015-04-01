@@ -12,9 +12,13 @@ class Character extends MovieClipPlus {
 	public var health:Int;
 	
 	/** Constructor */
-	public function new (textures:flash.Vector<Texture>, fps:Int=8) {
+	public function new (botType:Int, textures:flash.Vector<Texture>, fps:Int=8) {
 		super(textures, fps);
 		health = 4;
+		
+		if (botType == 1) {
+			this.initializeHero();
+		}
 	}
 
 	/** Create and return game hero */

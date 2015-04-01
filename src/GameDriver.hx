@@ -235,21 +235,22 @@ class GameDriver extends Sprite {
 		
 		// Set and add hero character
 		var atlas = GameDriver.assets.getTextureAtlas("sprite_atlas");
-		var hero:Character = new Character(atlas.getTextures("walking_guy"));
-		hero.initializeHero();
+		hero = new Character(1, atlas.getTextures("walking_guy"));
+		hero.x = 20;
+		hero.y = 250;
 		hero.makeStand();
         addChild(hero);
 		
 		// Set and add badbot character
-		badBot = createBadBot();
-		badBot.x = 100;
-        badBot.y = 268;
+		badBot = new Character(2, atlas.getTextures("bad_bot"));
+		badBot.x = 200;
+		badBot.y = 268;
         addChild(badBot);
 		
 		// Set and add goodbot character
-		goodBot = createGoodBot();
-		goodBot.x = 100;
-        goodBot.y = 235;
+		goodBot = new Character(3, atlas.getTextures("good_bot"));
+		goodBot.x = 400;
+		goodBot.y = 268;
         addChild(goodBot);
 			
 		//var Bound1 = new Rectangle(0,448, 1040, 272);
@@ -337,36 +338,6 @@ class GameDriver extends Sprite {
             });
 			
 		return;
-	}
-	
-	function createBadBot() {
-		var cbot:MovieClipPlus;
-		
-		// Create hero character
-		var atlas = GameDriver.assets.getTextureAtlas("sprite_atlas");
-		cbot = new MovieClipPlus(atlas.getTextures("bad_bot"), 1);
-		cbot.scaleX = .35;
-		cbot.scaleY = .35;
-		Starling.juggler.add(cbot);
-        cbot.stop();
-		
-		// Return hero movieclip
-		return cbot;
-	}
-	
-	function createGoodBot() {
-		var cbot:MovieClipPlus;
-		
-		// Create hero character
-		var atlas = GameDriver.assets.getTextureAtlas("sprite_atlas");
-		cbot = new MovieClipPlus(atlas.getTextures("good_bot"), 1);
-		cbot.scaleX = .35;
-		cbot.scaleY = .35;
-		Starling.juggler.add(cbot);
-        cbot.stop();
-		
-		// Return hero movieclip
-		return cbot;
 	}
 
 	/** Display the rules menu */

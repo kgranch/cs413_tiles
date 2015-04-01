@@ -1,4 +1,4 @@
-﻿import starling.animation.Tween;
+import starling.animation.Tween;
 import starling.animation.Transitions;
 import starling.display.MovieClip;
 import starling.textures.Texture;
@@ -51,6 +51,9 @@ class GameDriver extends Sprite {
 	
 	//For the tilemap
 	var tmx:Tilemap;
+	
+	//vars for scrolling
+	var world;
 	
 	// Game Characters
 	var hero:Character;
@@ -177,6 +180,26 @@ class GameDriver extends Sprite {
 
     }
     */
+    
+    
+	/**Camera scrolling functions
+	private function onEnterFrame(event:EnterFrameEvent):void
+	{
+		world.x = - hero.x + (stage.stageWidth/2);
+		world.y = - hero.y + (stage.stageHeight/2);
+  
+		//Travel Limits
+	
+		var ox = stage.stageWidth/2;
+		var oy = stage.stageHeight/2;
+		
+		var maxworld;
+	
+		maxworld.x = -min(max(hero.x * world.scaleX, ox), 1280 - ox) + stage.stageWidth/2;
+	
+		maxworld.y = -min(max(hero.y * world.scaleY, oy), 720 - oy) + stage.stageHeight/2;
+	}
+	**/
 
 	/** Do stuff with the menu screen */
 	private function startScreen() {
@@ -258,6 +281,9 @@ class GameDriver extends Sprite {
 		goodBot.x = 400;
 		goodBot.y = 268;
         addChild(goodBot);
+        
+        
+	//onEnterFrame();
         
         //Listen for jump input
         Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, 

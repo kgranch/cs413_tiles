@@ -35,6 +35,7 @@ class GameDriver extends Sprite {
 	
 	// In game text objects
 	public var gameTitleText:TextField;
+	public var scoreText:TextField;
 	
 	// Interactive Buttons
 	var startButton:Button;
@@ -217,10 +218,6 @@ class GameDriver extends Sprite {
 		// Set and display game screen background
 		gameScreen = new Image(GameDriver.assets.getTexture("gameScreen"));
 		addChild(gameScreen);
-		
-		// Set and display startgame title
-		var titleText:TextField = installText(0,20, "Game Goes Here", "gameFont01", 55, "center");
-		addChild(titleText);
 	
 		// Set and add mainMenu button
 		mainMenuButton = installMainMenuButton(590, 550);
@@ -229,6 +226,12 @@ class GameDriver extends Sprite {
 		// Load tilemap
 		tmx = new Tilemap(GameDriver.assets, "levelone");
 		addChild(tmx);
+
+		// Set and display score
+		var scoreText:TextField = installText(0, 20, "Score:", "gameFont01", 45);
+		scoreText.x = 1000;
+		scoreText.y = 10;
+		addChild(scoreText);
 		
 		// Set and add hero character
 		var atlas = GameDriver.assets.getTextureAtlas("sprite_atlas");

@@ -7,24 +7,48 @@ import HealthBar;
 
 class Character extends MovieClipPlus {
 	/** Local vars */
+	public var heroBotType:Int = 1;
+	public var badBotType:Int = 2;
+	public var goodBotType:Int = 3;
 	
 	// Game character stats
 	public var health:Int;
 	
 	/** Constructor */
-	public function new (textures:flash.Vector<Texture>, fps:Int=8) {
+	public function new (botType:Int, textures:flash.Vector<Texture>, fps:Int=8) {
 		super(textures, fps);
 		health = 4;
+		
+		if(botType == heroBotType) {
+			this.initializeHero();
+		}
+		else if(botType == badBotType) {
+			this.initializeBadBot();
+		}
+		else if(botType == goodBotType) {
+			this.initializeGoodBot();
+		}
 	}
 
 	/** Create and return game hero */
 	public function initializeHero() {
-		this.scaleX = .25;
-		this.scaleY = .25;
+		this.scaleX = .20;
+		this.scaleY = .20;
 		
-		// set hero's starting position
-		this.x = 20;
-		this.y = 250;
+		Starling.juggler.add(this);
+        this.stop();
+	}
+
+	/** Create and return game bad bot */
+	public function initializeBadBot() {
+		
+		Starling.juggler.add(this);
+        this.stop();
+	}
+
+	/** Create and return game good bot */
+	public function initializeGoodBot() {
+		
 		Starling.juggler.add(this);
         this.stop();
 	}

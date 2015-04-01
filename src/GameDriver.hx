@@ -35,7 +35,6 @@ class GameDriver extends Sprite {
 	
 	// In game text objects
 	public var gameTitleText:TextField;
-	public var scoreText:TextField;
 	
 	// Interactive Buttons
 	var startButton:Button;
@@ -224,6 +223,10 @@ class GameDriver extends Sprite {
 		// Set and display game screen background
 		gameScreen = new Image(GameDriver.assets.getTexture("gameScreen"));
 		addChild(gameScreen);
+		
+		// Set and display startgame title
+		var titleText:TextField = installText(0,20, "Game Goes Here", "gameFont01", 55, "center");
+		addChild(titleText);
 	
 		// Set and add mainMenu button
 		mainMenuButton = installMainMenuButton(590, 550);
@@ -232,31 +235,24 @@ class GameDriver extends Sprite {
 		// Load tilemap
 		tmx = new Tilemap(GameDriver.assets, "levelone");
 		addChild(tmx);
-
-		// Set and display score
-		var scoreText:TextField = installText(0, 20, "Score:", "gameFont01", 45);
-		scoreText.x = 1000;
-		scoreText.y = 10;
-		addChild(scoreText);
 		
 		// Set and add hero character
 		var atlas = GameDriver.assets.getTextureAtlas("sprite_atlas");
-		hero = new Character(1, atlas.getTextures("walking_guy"));
-		hero.x = 20;
-		hero.y = 250;
+		var hero:Character = new Character(atlas.getTextures("walking_guy"));
+		hero.initializeHero();
 		hero.makeStand();
         addChild(hero);
 		
 		// Set and add badbot character
-		badBot = new Character(2, atlas.getTextures("bad_bot"));
-		badBot.x = 200;
-		badBot.y = 268;
+		badBot = createBadBot();
+		badBot.x = 100;
+        badBot.y = 268;
         addChild(badBot);
 		
 		// Set and add goodbot character
-		goodBot = new Character(3, atlas.getTextures("good_bot"));
-		goodBot.x = 400;
-		goodBot.y = 268;
+		goodBot = createGoodBot();
+		goodBot.x = 100;
+        goodBot.y = 235;
         addChild(goodBot);
         
         //Listen for jump input
@@ -276,7 +272,7 @@ class GameDriver extends Sprite {
                                         heroTween.onComplete = function()
                                         {
                                                 var heroTween2 = new Tween(hero, -travelTime);
-                                                heroTween2.delay = 1.0;
+                                                heroTween2.delay = 0.0;
                                                 heroTween2.animate("y", -10);
                                                 heroTween2.onComplete = function()
                                                 {
@@ -373,6 +369,36 @@ class GameDriver extends Sprite {
             });
 			
 		return;
+	}
+	
+	function createBadBot() {
+		var cbot:MovieClipPlus;
+		
+		// Create hero character
+		var atlas = GameDriver.assets.getTextureAtlas("sprite_atlas");
+		cbot = new MovieClipPlus(atlas.getTextures("bad_bot"), 1);
+		cbot.scaleX = .35;
+		cbot.scaleY = .35;
+		Starling.juggler.add(cbot);
+        cbot.stop();
+		
+		// Return hero movieclip
+		return cbot;
+	}
+	
+	function createGoodBot() {
+		var cbot:MovieClipPlus;
+		
+		// Create hero character
+		var atlas = GameDriver.assets.getTextureAtlas("sprite_atlas");
+		cbot = new MovieClipPlus(atlas.getTextures("good_bot"), 1);
+		cbot.scaleX = .35;
+		cbot.scaleY = .35;
+		Starling.juggler.add(cbot);
+        cbot.stop();
+		
+		// Return hero movieclip
+		return cbot;
 	}
 
 	/** Display the rules menu */

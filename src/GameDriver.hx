@@ -126,6 +126,7 @@ class GameDriver extends Sprite {
 			}
 		});
 	    
+	    /*
 	    //Code for dat jumping goodness
 	    Transitions.register("jump", function(ratio:Float):Float
         {
@@ -139,14 +140,18 @@ class GameDriver extends Sprite {
         {
                 return 1-jump_transition(1/2+ratio/2);
         });
+        */
         
 	}
 	
+	/*
 	private static function jump_transition(ratio:Float):Float
     {
             var v:Float = 4.0;
             var a:Float = -2*v;
-            return v*ratio + 1/2*a*ratio*ratio;
+            //hero.y += 100;
+            //return v*ratio + 1/2*a*ratio*ratio;
+            Starling.juggler.add(jump_transition);
     }
 
     private function jump_listener(e:KeyboardEvent)
@@ -170,6 +175,7 @@ class GameDriver extends Sprite {
             var delay = 2.0;
 
     }
+    */
 
 	/** Do stuff with the menu screen */
 	private function startScreen() {
@@ -248,6 +254,35 @@ class GameDriver extends Sprite {
 		goodBot.x = 100;
         goodBot.y = 235;
         addChild(goodBot);
+        
+        //Listen for jump input
+        Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, 
+                        function(event:KeyboardEvent)
+                        {
+                                if (event.keyCode == Keyboard.SPACE)
+                                {
+                                        hero.makeJump();
+                                        //hero.y -= 100;
+                                        //var heroJump = new Image(Character.makeJump());
+                                        var travelTime = 1;
+                                        var jumpSound = assets.playSound("Jump.mp3", 150);
+                                        var heroTween = new Tween(hero, travelTime);
+                                        heroTween.delay = 0.0;
+                                        heroTween.animate("y", 10);
+                                        heroTween.onComplete = function()
+                                        {
+                                                var heroTween2 = new Tween(hero, -travelTime);
+                                                heroTween2.delay = 1.0;
+                                                heroTween2.animate("y", -10);
+                                                heroTween2.onComplete = function()
+                                                {
+                                                        removeChild(hero);
+                                                        hero.makeStand();
+                                                }
+                                        }
+                                        Starling.juggler.add(heroTween);
+                                }
+                        });
 			
 		//var Bound1 = new Rectangle(0,448, 1040, 272);
         var Bound1 = new Rectangle(0,478, 1040, 272);

@@ -92,19 +92,17 @@ class Character extends MovieClipPlus {
 			makeDizzy();
 			
 		Starling.juggler.tween(this, 1, {
-				delay: 3,
+				delay: 2,
 				onComplete: function() {
 					makeStand();
 			}});
 		
-			
 			healthBar.animateBarSpan(currentSpan - 0.3, 0.015);
 			healthBar.flashColor(0xFF0000, 30);
 			
-			//if(healthBar.getBarSpan() < 0.1 && gameOver != null){
-				//gameOver(false);
-			//}
-		
+			if(healthBar.getBarSpan() < 0.1){
+				gameDriver.triggerGameOver(false);
+			}
 		}
 	}
 	

@@ -83,6 +83,7 @@ class GameDriver extends Sprite {
 		assets.enqueue("assets/tutorialScreen.png");
 		assets.enqueue("assets/creditsScreen.png");
 		assets.enqueue("assets/gameScreen.png");
+		assets.enqueue("assets/gameoverScreen.png");
 		
 		// game font
 		assets.enqueue("assets/gameFont01.fnt");
@@ -406,7 +407,6 @@ class GameDriver extends Sprite {
        			if(checkCollision(hero, goodBot.bounds)){
 					hero.processBotCollision(goodBot);
        				removeChild(goodBot, true);
-					goodBot.dispose();
        			}
             	
             	//keep the hero on the ground
@@ -526,12 +526,45 @@ class GameDriver extends Sprite {
 		return;
 	}
 	
+	/** Called when the game is over */
+	public function triggerGameOver(winGame:Bool) {
+		this.removeChildren();
+		startScreen();
+		
+		var displayText:TextField = null;
+		
+		if (!winGame){
+			displayText = installText(470, 125, "You lose!", "creditsFont01", 65);	
+		} else {
+			displayText = installText(470, 125, "You Win!", "gameFont04", 65);
+		}
+		
+		var container = new Sprite();
+		var bg = new Image(assets.getTexture("gameoverScreen"));
+		
+		container.addChild(bg);
+		container.addChild(displayText);
+		addChild(container);
+		
+		Starling.juggler.tween(container, 2, {
+			transition: Transitions.EASE_OUT,
+			delay: 4,
+			alpha: 0,
+			onComplete: function(){
+				//startScreen();
+			}
+		});
+		
+		return;
+	}
+	
 	/** Restart the game */
 	private function restartGame(){
 		this.removeChildren();
 		startGame();
 	}
 	
+	/** Install game text **/
 	private function installText(x:Int, y:Int, myText:String, myFont:String, myFontsize:Int, myHAlign:String = "left", myAutoSize:String = "vertical") {
 		// local vars
 		var gameText:TextField;

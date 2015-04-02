@@ -404,7 +404,6 @@ class GameDriver extends Sprite {
             	checkCollision(hero, Bound12)||checkCollision(hero, Bound13)||checkCollision(hero, Bound14)||
             	checkCollision(hero, Bound15)||checkCollision(hero, Bound16)||checkCollision(hero, Bound17)||
             	checkCollision(hero, Bound18)||checkCollision(hero, Bound19)){
-            		trace(event.keyCode);
                 	hero.x -= 10;
                 }
         	}

@@ -101,6 +101,9 @@ class GameDriver extends Sprite {
 		assets.enqueue("assets/dirtBlock.png");
 		assets.enqueue("assets/cloud.png");
 		
+		// hero healthbar
+		assets.enqueue("assets/health_bar.png");
+		
 		// game sprite atlas
 		assets.enqueue("assets/sprite_atlas.xml");
 		assets.enqueue("assets/sprite_atlas.png");
@@ -264,20 +267,21 @@ class GameDriver extends Sprite {
 		
 		// Set and add hero character
 		var atlas = GameDriver.assets.getTextureAtlas("sprite_atlas");
-		hero = new Character(1, atlas.getTextures("walking_guy"));
+		hero = new Character(1, atlas.getTextures("walking_guy"), this);
+		hero.setHealthBar(GameDriver.assets.getTexture("health_bar"));
 		hero.x = 20;
 		hero.y = 300;
 		hero.makeStand();
         addChild(hero);
 		
 		// Set and add badbot character
-		badBot = new Character(2, atlas.getTextures("bad_bot"));
+		badBot = new Character(2, atlas.getTextures("bad_bot"), this);
 		badBot.x = 200;
 		badBot.y = 268;
         addChild(badBot);
 		
 		// Set and add goodbot character
-		goodBot = new Character(3, atlas.getTextures("good_bot"));
+		goodBot = new Character(3, atlas.getTextures("good_bot"), this);
 		goodBot.x = 400;
 		goodBot.y = 268;
         addChild(goodBot);

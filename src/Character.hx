@@ -1,6 +1,7 @@
 ﻿import starling.core.Starling;
 import starling.display.Sprite;
 import starling.textures.Texture;
+import starling.display.Image;
 
 import MovieClipPlus;
 import HealthBar;
@@ -10,14 +11,17 @@ class Character extends MovieClipPlus {
 	public var heroBotType:Int = 1;
 	public var badBotType:Int = 2;
 	public var goodBotType:Int = 3;
+	public var gameDriver:GameDriver;
 	
 	// Game character stats
 	public var health:Int;
+	public var healthBar:HealthBar;
 	
 	/** Constructor */
-	public function new (botType:Int, textures:flash.Vector<Texture>, fps:Int=8) {
+	public function new (botType:Int, textures:flash.Vector<Texture>, gameDriver:GameDriver, fps:Int=8) {
 		super(textures, fps);
-		health = 4;
+		this.health = 4;
+		this.gameDriver = gameDriver;
 		
 		if(botType == heroBotType) {
 			this.initializeHero();
@@ -55,6 +59,23 @@ class Character extends MovieClipPlus {
 		
 		Starling.juggler.add(this);
         this.stop();
+	}
+	
+	public function setHealthBar(healthBarTexture:Texture) {
+		healthBar = new HealthBar(400,25,healthBarTexture);
+		healthBar.defaultColor = healthBar.color;
+		healthBar.x = gameDriver.stage.stageWidth/2 - healthBar.maxWidth/2;
+		healthBar.y = 25;
+		
+		var tHealthbar = new Image(healthBarTexture);
+		tHealthbar.width = healthBar.maxWidth;
+		tHealthbar.height = healthBar.height;
+		tHealthbar.x = healthBar.x;
+		tHealthbar.y = healthBar.y;
+		tHealthbar.alpha = 0.2;
+			
+		gameDriver.addChild(tHealthbar);
+		gameDriver.addChild(healthBar);
 	}
 	
 	public function makeWalk() {

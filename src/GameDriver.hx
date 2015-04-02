@@ -272,8 +272,8 @@ class GameDriver extends Sprite {
 		
 		// Set and add badbot character
 		badBot = new Character(2, atlas.getTextures("bad_bot"), this);
-		badBot.x = 200;
-		badBot.y = 268;
+		badBot.x = 220;
+		badBot.y = 420;
         addChild(badBot);
 		
 		// Set and add goodbot character
@@ -281,6 +281,10 @@ class GameDriver extends Sprite {
 		goodBot.x = 400;
 		goodBot.y = 268;
         addChild(goodBot);
+        
+        // bounds for the bad bot and good bot
+        var BadBotBound = badBot.bounds;
+        var GoodBotBound = goodBot.bounds;
         
 	//onEnterFrame();
         
@@ -343,9 +347,9 @@ class GameDriver extends Sprite {
             	hero.x -= 10;
 				
 				//if the hero hit the bad bot
-            	if(checkCollision(hero, badBot.bounds)){
+            	if(checkCollision(hero, BadBotBound)){
        				hero.makeDizzy();
-					hero.processBotCollision(badBot);
+					//hero.processBotCollision(badBot);
        			}
        			
        			//if the hero hit the good bot
@@ -436,7 +440,36 @@ class GameDriver extends Sprite {
                 	hero.x -= 10;
                 }
         	}
-        	
+        	        	if(event.keyCode == Keyboard.UP){
+        		//hero.y -= 10;
+        		
+        		Starling.juggler.tween(hero, 0.8, {
+                	transition: Transitions.EASE_OUT,
+					//transition: animation.Transitions.EASE_OUT,
+                		y: -50,
+                		repeatCount: 1,
+                		reverse: false
+                    });
+                    
+  
+                while(!checkCollision(hero, Bound1)||!checkCollision(hero, Bound2)||!checkCollision(hero, Bound2)||
+            	!checkCollision(hero, Bound3)||!checkCollision(hero, Bound4)||!checkCollision(hero, Bound5)||
+            	!checkCollision(hero, Bound6)||!checkCollision(hero, Bound7)||!checkCollision(hero, Bound8)||
+            	!checkCollision(hero, Bound9)||!checkCollision(hero, Bound10)||!checkCollision(hero, Bound11)||
+            	!checkCollision(hero, Bound12)||!checkCollision(hero, Bound13)||!checkCollision(hero, Bound14)||
+            	!checkCollision(hero, Bound15)||!checkCollision(hero, Bound16)||!checkCollision(hero, Bound17)||
+            	!checkCollision(hero, Bound18)||!checkCollision(hero, Bound19)){
+        			hero.y += 1;
+            		if(checkCollision(hero, Bound1)||checkCollision(hero, Bound2)||checkCollision(hero, Bound2)||
+            		checkCollision(hero, Bound3)||checkCollision(hero, Bound4)||checkCollision(hero, Bound5)||
+            		checkCollision(hero, Bound6)||checkCollision(hero, Bound7)||checkCollision(hero, Bound8)||
+            		checkCollision(hero, Bound9)||checkCollision(hero, Bound10)||checkCollision(hero, Bound11)||
+            		checkCollision(hero, Bound12)||checkCollision(hero, Bound13)||checkCollision(hero, Bound14)||
+            		checkCollision(hero, Bound15)||checkCollision(hero, Bound16)||checkCollision(hero, Bound17)||
+            		checkCollision(hero, Bound18)||checkCollision(hero, Bound19)){
+        				hero.y-= 1;
+        				break;
+        			}}}
 
             
             if(event.keyCode == Keyboard.DOWN){

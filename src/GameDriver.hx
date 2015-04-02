@@ -440,15 +440,15 @@ class GameDriver extends Sprite {
                 	hero.x -= 10;
                 }
         	}
-        	        	if(event.keyCode == Keyboard.UP){
+        	    if(event.keyCode == Keyboard.UP){
         		//hero.y -= 10;
         		
         		Starling.juggler.tween(hero, 0.8, {
                 	transition: Transitions.EASE_OUT,
 					//transition: animation.Transitions.EASE_OUT,
                 		y: -50,
-                		repeatCount: 1,
-                		reverse: false
+                		repeatCount: 2,
+                		reverse: true
                     });
                     
   

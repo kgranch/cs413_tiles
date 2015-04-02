@@ -57,8 +57,8 @@ class GameDriver extends Sprite {
 	
 	// Game Characters
 	var hero:Character;
-	var badBot:MovieClipPlus;
-	var goodBot:MovieClipPlus;
+	var badBot:Character;
+	var goodBot:Character;
 
     //var for the jump function
     var jump_tween:Tween;
@@ -286,11 +286,6 @@ class GameDriver extends Sprite {
 		goodBot.y = 268;
         addChild(goodBot);
         
-        // bounds for the bad bot and good bot
-        var BadBotBound = badBot.bounds;
-        var GoodBotBound = goodBot.bounds;
-
-        
 	//onEnterFrame();
         
         //Listen for jump input
@@ -352,13 +347,15 @@ class GameDriver extends Sprite {
             	hero.x -= 10;
 				
 				//if the hero hit the bad bot
-            	if(checkCollision(hero, BadBotBound)){
+            	if(checkCollision(hero, badBot.bounds)){
        				hero.makeDizzy();
+					hero.processBotCollision(badBot);
        			}
        			
        			//if the hero hit the good bot
-       			if(checkCollision(hero, GoodBotBound )){
-       				 removeChild(goodBot);
+       			if(checkCollision(hero, goodBot.bounds)){
+					hero.processBotCollision(goodBot);
+       				removeChild(goodBot, true);
        			}
        			
             	// check if the hero hit the bound
@@ -398,15 +395,18 @@ class GameDriver extends Sprite {
             if(event.keyCode == Keyboard.RIGHT){
             	hero.makeWalk();
             	hero.x += 10;
-            	
-            	//if the hero hit the bad bot
-            	if(checkCollision(hero, BadBotBound)){
+				
+				//if the hero hit the bad bot
+            	if(checkCollision(hero, badBot.bounds)){
        				hero.makeDizzy();
+					hero.processBotCollision(badBot);
        			}
        			
        			//if the hero hit the good bot
-       			if(checkCollision(hero, GoodBotBound )){
-       				 removeChild(goodBot);
+       			if(checkCollision(hero, goodBot.bounds)){
+					hero.processBotCollision(goodBot);
+       				removeChild(goodBot, true);
+					goodBot.dispose();
        			}
             	
             	//keep the hero on the ground

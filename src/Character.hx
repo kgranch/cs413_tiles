@@ -14,6 +14,7 @@ class Character extends MovieClipPlus {
 	public var gameDriver:GameDriver;
 	
 	// Game character stats
+	public var botType:Int;
 	public var health:Int;
 	public var healthBar:HealthBar;
 	
@@ -21,6 +22,7 @@ class Character extends MovieClipPlus {
 	public function new (botType:Int, textures:flash.Vector<Texture>, gameDriver:GameDriver, fps:Int=8) {
 		super(textures, fps);
 		this.health = 4;
+		this.botType = botType;
 		this.gameDriver = gameDriver;
 		
 		if(botType == heroBotType) {
@@ -76,6 +78,34 @@ class Character extends MovieClipPlus {
 			
 		gameDriver.addChild(tHealthbar);
 		gameDriver.addChild(healthBar);
+	}
+	
+	public function processBotCollision(gameBot:Character){
+		var currentSpan = healthBar.getBarSpan();
+		
+		if(gameBot.botType == goodBotType){
+			//rightAnsSound.play();
+			healthBar.animateBarSpan(currentSpan + 0.1, 0.015);
+			healthBar.flashColor(0x00FF00, 30);
+		} else if(gameBot.botType == badBotType) {
+			//wrongAnsSound.play();
+			makeDizzy();
+			
+		Starling.juggler.tween(this, 1, {
+				delay: 3,
+				onComplete: function() {
+					makeStand();
+			}});
+		
+			
+			healthBar.animateBarSpan(currentSpan - 0.3, 0.015);
+			healthBar.flashColor(0xFF0000, 30);
+			
+			//if(healthBar.getBarSpan() < 0.1 && gameOver != null){
+				//gameOver(false);
+			//}
+		
+		}
 	}
 	
 	public function makeWalk() {

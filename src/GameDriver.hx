@@ -53,7 +53,7 @@ class GameDriver extends Sprite {
 	var tmx:Tilemap;
 	
 	//vars for scrolling
-	var world;
+	//var world;
 	
 	// Game Characters
 	var hero:Character;
@@ -349,14 +349,54 @@ class GameDriver extends Sprite {
             	checkCollision(hero, Bound15)||checkCollision(hero, Bound16)||checkCollision(hero, Bound17)||
             	checkCollision(hero, Bound18)||checkCollision(hero, Bound19)){
             		hero.x +=10;
-            		
-            		trace(event.keyCode);
+
                 }
+                
+                while(!checkCollision(hero, Bound1)||!checkCollision(hero, Bound2)||!checkCollision(hero, Bound2)||
+            	!checkCollision(hero, Bound3)||!checkCollision(hero, Bound4)||!checkCollision(hero, Bound5)||
+            	!checkCollision(hero, Bound6)||!checkCollision(hero, Bound7)||!checkCollision(hero, Bound8)||
+            	!checkCollision(hero, Bound9)||!checkCollision(hero, Bound10)||!checkCollision(hero, Bound11)||
+            	!checkCollision(hero, Bound12)||!checkCollision(hero, Bound13)||!checkCollision(hero, Bound14)||
+            	!checkCollision(hero, Bound15)||!checkCollision(hero, Bound16)||!checkCollision(hero, Bound17)||
+            	!checkCollision(hero, Bound18)||!checkCollision(hero, Bound19)){
+        			hero.y += 1;
+            	if(checkCollision(hero, Bound1)||checkCollision(hero, Bound2)||checkCollision(hero, Bound2)||
+            	checkCollision(hero, Bound3)||checkCollision(hero, Bound4)||checkCollision(hero, Bound5)||
+            	checkCollision(hero, Bound6)||checkCollision(hero, Bound7)||checkCollision(hero, Bound8)||
+            	checkCollision(hero, Bound9)||checkCollision(hero, Bound10)||checkCollision(hero, Bound11)||
+            	checkCollision(hero, Bound12)||checkCollision(hero, Bound13)||checkCollision(hero, Bound14)||
+            	checkCollision(hero, Bound15)||checkCollision(hero, Bound16)||checkCollision(hero, Bound17)||
+            	checkCollision(hero, Bound18)||checkCollision(hero, Bound19)){
+        				hero.y-= 1;
+        				break;
+        			}
+        		}
             }
                         		
             if(event.keyCode == Keyboard.RIGHT){
             	hero.makeWalk();
             	hero.x += 10;
+            	
+            	while(!checkCollision(hero, Bound1)||!checkCollision(hero, Bound2)||!checkCollision(hero, Bound2)||
+            	!checkCollision(hero, Bound3)||!checkCollision(hero, Bound4)||!checkCollision(hero, Bound5)||
+            	!checkCollision(hero, Bound6)||!checkCollision(hero, Bound7)||!checkCollision(hero, Bound8)||
+            	!checkCollision(hero, Bound9)||!checkCollision(hero, Bound10)||!checkCollision(hero, Bound11)||
+            	!checkCollision(hero, Bound12)||!checkCollision(hero, Bound13)||!checkCollision(hero, Bound14)||
+            	!checkCollision(hero, Bound15)||!checkCollision(hero, Bound16)||!checkCollision(hero, Bound17)||
+            	!checkCollision(hero, Bound18)||!checkCollision(hero, Bound19)){
+        			hero.y += 1;
+            	if(checkCollision(hero, Bound1)||checkCollision(hero, Bound2)||checkCollision(hero, Bound2)||
+            	checkCollision(hero, Bound3)||checkCollision(hero, Bound4)||checkCollision(hero, Bound5)||
+            	checkCollision(hero, Bound6)||checkCollision(hero, Bound7)||checkCollision(hero, Bound8)||
+            	checkCollision(hero, Bound9)||checkCollision(hero, Bound10)||checkCollision(hero, Bound11)||
+            	checkCollision(hero, Bound12)||checkCollision(hero, Bound13)||checkCollision(hero, Bound14)||
+            	checkCollision(hero, Bound15)||checkCollision(hero, Bound16)||checkCollision(hero, Bound17)||
+            	checkCollision(hero, Bound18)||checkCollision(hero, Bound19)){
+        				hero.y-= 1;
+        				break;
+        			}
+        		}
+            	
             	if(checkCollision(hero, Bound1)||checkCollision(hero, Bound2)||checkCollision(hero, Bound2)||
             	checkCollision(hero, Bound3)||checkCollision(hero, Bound4)||checkCollision(hero, Bound5)||
             	checkCollision(hero, Bound6)||checkCollision(hero, Bound7)||checkCollision(hero, Bound8)||
@@ -369,18 +409,37 @@ class GameDriver extends Sprite {
                 }
         	}
         	
-        	if(event.keyCode == Keyboard.UP){
-        		hero.y -= 10;
-            	if(checkCollision(hero, Bound1)||checkCollision(hero, Bound2)||checkCollision(hero, Bound2)||
-            	checkCollision(hero, Bound3)||checkCollision(hero, Bound4)||checkCollision(hero, Bound5)||
-            	checkCollision(hero, Bound6)||checkCollision(hero, Bound7)||checkCollision(hero, Bound8)||
-            	checkCollision(hero, Bound9)||checkCollision(hero, Bound10)||checkCollision(hero, Bound11)||
-            	checkCollision(hero, Bound12)||checkCollision(hero, Bound13)||checkCollision(hero, Bound14)||
-            	checkCollision(hero, Bound15)||checkCollision(hero, Bound16)||checkCollision(hero, Bound17)||
-            	checkCollision(hero, Bound18)||checkCollision(hero, Bound19)){
-            		trace(event.keyCode);
-                	hero.y += 10;
-                }
+        	if(event.keyCode == Keyboard.SPACE){
+        		//hero.y -= 10;
+        		
+        		Starling.juggler.tween(hero, 0.8, {
+                	transition: Transitions.EASE_OUT,
+					//transition: animation.Transitions.EASE_OUT,
+                		y: -50,
+                		repeatCount: 1,
+                		reverse: false
+                    });
+  
+                while(!checkCollision(hero, Bound1)||!checkCollision(hero, Bound2)||!checkCollision(hero, Bound2)||
+            	!checkCollision(hero, Bound3)||!checkCollision(hero, Bound4)||!checkCollision(hero, Bound5)||
+            	!checkCollision(hero, Bound6)||!checkCollision(hero, Bound7)||!checkCollision(hero, Bound8)||
+            	!checkCollision(hero, Bound9)||!checkCollision(hero, Bound10)||!checkCollision(hero, Bound11)||
+            	!checkCollision(hero, Bound12)||!checkCollision(hero, Bound13)||!checkCollision(hero, Bound14)||
+            	!checkCollision(hero, Bound15)||!checkCollision(hero, Bound16)||!checkCollision(hero, Bound17)||
+            	!checkCollision(hero, Bound18)||!checkCollision(hero, Bound19)){
+        			hero.y += 1;
+            		if(checkCollision(hero, Bound1)||checkCollision(hero, Bound2)||checkCollision(hero, Bound2)||
+            		checkCollision(hero, Bound3)||checkCollision(hero, Bound4)||checkCollision(hero, Bound5)||
+            		checkCollision(hero, Bound6)||checkCollision(hero, Bound7)||checkCollision(hero, Bound8)||
+            		checkCollision(hero, Bound9)||checkCollision(hero, Bound10)||checkCollision(hero, Bound11)||
+            		checkCollision(hero, Bound12)||checkCollision(hero, Bound13)||checkCollision(hero, Bound14)||
+            		checkCollision(hero, Bound15)||checkCollision(hero, Bound16)||checkCollision(hero, Bound17)||
+            		checkCollision(hero, Bound18)||checkCollision(hero, Bound19)){
+        				hero.y-= 1;
+        				break;
+        			}
+        		}
+                    
             }
             
             if(event.keyCode == Keyboard.DOWN){

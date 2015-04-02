@@ -247,10 +247,6 @@ class GameDriver extends Sprite {
 		// Set and display game screen background
 		gameScreen = new Image(GameDriver.assets.getTexture("gameScreen"));
 		addChild(gameScreen);
-	
-		// Set and add mainMenu button
-		mainMenuButton = installMainMenuButton(590, 550);
-		addChild(mainMenuButton);
 
 		// Load tilemap
 		tmx = new Tilemap(GameDriver.assets, "levelone");
@@ -261,12 +257,16 @@ class GameDriver extends Sprite {
 		scoreText.x = 1000;
 		scoreText.y = 10;
 		addChild(scoreText);
+	
+		// Set and add mainMenu button
+		mainMenuButton = installMainMenuButton(15, 15);
+		addChild(mainMenuButton);
 		
 		// Set and add hero character
 		var atlas = GameDriver.assets.getTextureAtlas("sprite_atlas");
 		hero = new Character(1, atlas.getTextures("walking_guy"));
 		hero.x = 20;
-		hero.y = 250;
+		hero.y = 300;
 		hero.makeStand();
         addChild(hero);
 		

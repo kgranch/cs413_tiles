@@ -282,6 +282,10 @@ class GameDriver extends Sprite {
 		goodBot.y = 268;
         addChild(goodBot);
         
+        // bounds for the bad bot and good bot
+        var BadBotBound = badBot.bounds;
+        var GoodBotBound = goodBot.bounds;
+
         
 	//onEnterFrame();
         
@@ -313,7 +317,8 @@ class GameDriver extends Sprite {
                                         Starling.juggler.add(heroTween);
                                 }
                         });
-			
+		
+		// map boundaries 
 		//var Bound1 = new Rectangle(0,448, 1040, 272);
         var Bound1 = new Rectangle(0,478, 1040, 272);
         // var Bound2 = new Rectangle(192,446, 848, 32);
@@ -341,6 +346,18 @@ class GameDriver extends Sprite {
             if(event.keyCode == Keyboard.LEFT){
             	hero.makeWalk();
             	hero.x -= 10;
+				
+				//if the hero hit the bad bot
+            	if(checkCollision(hero, BadBotBound)){
+       				hero.makeDizzy();
+       			}
+       			
+       			//if the hero hit the good bot
+       			if(checkCollision(hero, GoodBotBound )){
+       				 removeChild(goodBot);
+       			}
+       			
+            	// check if the hero hit the bound
             	if(checkCollision(hero, Bound1)||checkCollision(hero, Bound2)||checkCollision(hero, Bound2)||
             	checkCollision(hero, Bound3)||checkCollision(hero, Bound4)||checkCollision(hero, Bound5)||
             	checkCollision(hero, Bound6)||checkCollision(hero, Bound7)||checkCollision(hero, Bound8)||
@@ -352,6 +369,7 @@ class GameDriver extends Sprite {
 
                 }
                 
+                // keep the hero on the ground
                 while(!checkCollision(hero, Bound1)||!checkCollision(hero, Bound2)||!checkCollision(hero, Bound2)||
             	!checkCollision(hero, Bound3)||!checkCollision(hero, Bound4)||!checkCollision(hero, Bound5)||
             	!checkCollision(hero, Bound6)||!checkCollision(hero, Bound7)||!checkCollision(hero, Bound8)||
@@ -377,6 +395,17 @@ class GameDriver extends Sprite {
             	hero.makeWalk();
             	hero.x += 10;
             	
+            	//if the hero hit the bad bot
+            	if(checkCollision(hero, BadBotBound)){
+       				hero.makeDizzy();
+       			}
+       			
+       			//if the hero hit the good bot
+       			if(checkCollision(hero, GoodBotBound )){
+       				 removeChild(goodBot);
+       			}
+            	
+            	//keep the hero on the ground
             	while(!checkCollision(hero, Bound1)||!checkCollision(hero, Bound2)||!checkCollision(hero, Bound2)||
             	!checkCollision(hero, Bound3)||!checkCollision(hero, Bound4)||!checkCollision(hero, Bound5)||
             	!checkCollision(hero, Bound6)||!checkCollision(hero, Bound7)||!checkCollision(hero, Bound8)||
@@ -397,6 +426,7 @@ class GameDriver extends Sprite {
         			}
         		}
             	
+            	//check if the hero hit the bounds 
             	if(checkCollision(hero, Bound1)||checkCollision(hero, Bound2)||checkCollision(hero, Bound2)||
             	checkCollision(hero, Bound3)||checkCollision(hero, Bound4)||checkCollision(hero, Bound5)||
             	checkCollision(hero, Bound6)||checkCollision(hero, Bound7)||checkCollision(hero, Bound8)||
@@ -419,7 +449,6 @@ class GameDriver extends Sprite {
             	checkCollision(hero, Bound12)||checkCollision(hero, Bound13)||checkCollision(hero, Bound14)||
             	checkCollision(hero, Bound15)||checkCollision(hero, Bound16)||checkCollision(hero, Bound17)||
             	checkCollision(hero, Bound18)||checkCollision(hero, Bound19)){
-            		trace(event.keyCode);
                 	hero.y -= 10;
                 }
         	}
@@ -585,4 +614,7 @@ class GameDriver extends Sprite {
     private function checkCollision(texture1:Image, texture2:Rectangle):Bool {
         return (texture1.bounds.intersects(texture2));
     }
+
+    
+
 }

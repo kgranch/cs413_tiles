@@ -2,6 +2,7 @@
 import starling.display.Sprite;
 import starling.textures.Texture;
 import starling.display.Image;
+import starling.text.TextField;
 
 import MovieClipPlus;
 import HealthBar;
@@ -15,13 +16,14 @@ class Character extends MovieClipPlus {
 	
 	// Game character stats
 	public var botType:Int;
-	public var health:Int;
 	public var healthBar:HealthBar;
+	public var heroScore:Int;
+	public var scoreText:TextField;
+	public var winningScore:Int = 20;
 	
 	/** Constructor */
 	public function new (botType:Int, textures:flash.Vector<Texture>, gameDriver:GameDriver, fps:Int=8) {
 		super(textures, fps);
-		this.health = 4;
 		this.botType = botType;
 		this.gameDriver = gameDriver;
 		
@@ -43,6 +45,13 @@ class Character extends MovieClipPlus {
 		
 		Starling.juggler.add(this);
         this.stop();
+		
+		// initialize hero's score
+		heroScore = 0;
+		
+		// Set and display score
+		scoreText = gameDriver.installText(975, 10, "Score: "+heroScore, "gameFont01", 45);
+		gameDriver.addChild(scoreText);
 	}
 
 	/** Create and return game bad bot */
@@ -85,25 +94,39 @@ class Character extends MovieClipPlus {
 		
 		if(gameBot.botType == goodBotType){
 			//rightAnsSound.play();
+			
+			// increment's hero's score
+			heroScore += 1;
+			
+			// if hero collects X number of goodbots, then display win game
+			if (heroScore >= winningScore){
+				gameDriver.triggerGameOver(true);
+				return;
+			}
+			
+			gameDriver.removeChild(scoreText, true);
+			scoreText = gameDriver.installText(975, 10, "Score: "+heroScore, "gameFont01", 45);
+			gameDriver.addChild(scoreText);
+			
 			healthBar.animateBarSpan(currentSpan + 0.1, 0.015);
 			healthBar.flashColor(0x00FF00, 30);
 		} else if(gameBot.botType == badBotType) {
 			//wrongAnsSound.play();
 			makeDizzy();
 			
-		Starling.juggler.tween(this, 1, {
-				delay: 2,
-				onComplete: function() {
-					makeStand();
-			}});
-		
-			healthBar.animateBarSpan(currentSpan - 0.3, 0.015);
-			healthBar.flashColor(0xFF0000, 30);
+			Starling.juggler.tween(this, 1, {
+					delay: 2,
+					onComplete: function() {
+						makeStand();
+				}});
 			
-			if(healthBar.getBarSpan() < 0.1){
-				gameDriver.triggerGameOver(false);
+				healthBar.animateBarSpan(currentSpan - 0.3, 0.015);
+				healthBar.flashColor(0xFF0000, 30);
+				
+				if(healthBar.getBarSpan() < 0.1){
+					gameDriver.triggerGameOver(false);
+				}
 			}
-		}
 	}
 	
 	public function makeWalk() {

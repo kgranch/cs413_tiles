@@ -84,6 +84,7 @@ class GameDriver extends Sprite {
 		assets.enqueue("assets/creditsScreen.png");
 		assets.enqueue("assets/gameScreen.png");
 		assets.enqueue("assets/gameoverScreen.png");
+		assets.enqueue("assets/gamewinScreen.png");
 		
 		// game font
 		assets.enqueue("assets/gameFont01.fnt");
@@ -255,12 +256,6 @@ class GameDriver extends Sprite {
 		// Load tilemap
 		tmx = new Tilemap(GameDriver.assets, "levelone");
 		addChild(tmx);
-
-		// Set and display score
-		var scoreText:TextField = installText(0, 20, "Score:", "gameFont01", 45);
-		scoreText.x = 1000;
-		scoreText.y = 10;
-		addChild(scoreText);
 	
 		// Set and add mainMenu button
 		mainMenuButton = installMainMenuButton(15, 15);
@@ -531,16 +526,18 @@ class GameDriver extends Sprite {
 		this.removeChildren();
 		startScreen();
 		
+		// local vars
+		var container = new Sprite();
 		var displayText:TextField = null;
+		var bg:Image;
 		
 		if (!winGame){
-			displayText = installText(470, 125, "You lose!", "creditsFont01", 65);	
+			displayText = installText(470, 125, "You lose!", "creditsFont01", 65);
+			bg = new Image(assets.getTexture("gameoverScreen"));
 		} else {
-			displayText = installText(470, 125, "You Win!", "gameFont04", 65);
+			displayText = installText(470, 125, "You Win!", "gameFont01", 65);
+			bg = new Image(assets.getTexture("gamewinScreen"));
 		}
-		
-		var container = new Sprite();
-		var bg = new Image(assets.getTexture("gameoverScreen"));
 		
 		container.addChild(bg);
 		container.addChild(displayText);
@@ -565,7 +562,7 @@ class GameDriver extends Sprite {
 	}
 	
 	/** Install game text **/
-	private function installText(x:Int, y:Int, myText:String, myFont:String, myFontsize:Int, myHAlign:String = "left", myAutoSize:String = "vertical") {
+	public function installText(x:Int, y:Int, myText:String, myFont:String, myFontsize:Int, myHAlign:String = "left", myAutoSize:String = "vertical") {
 		// local vars
 		var gameText:TextField;
 		

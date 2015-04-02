@@ -551,7 +551,7 @@ class GameDriver extends Sprite {
 			delay: 4,
 			alpha: 0,
 			onComplete: function(){
-				//startScreen();
+				startScreen();
 			}
 		});
 		

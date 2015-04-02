@@ -41,6 +41,8 @@ class Character extends MovieClipPlus {
 
 	/** Create and return game bad bot */
 	public function initializeBadBot() {
+		this.scaleX = .20;
+		this.scaleY = .20;
 		
 		Starling.juggler.add(this);
         this.stop();
@@ -48,6 +50,8 @@ class Character extends MovieClipPlus {
 
 	/** Create and return game good bot */
 	public function initializeGoodBot() {
+		this.scaleX = .20;
+		this.scaleY = .20;
 		
 		Starling.juggler.add(this);
         this.stop();

@@ -57,8 +57,8 @@ class GameDriver extends Sprite {
 	
 	// Game Characters
 	var hero:Character;
-	var badBot:MovieClipPlus;
-	var goodBot:MovieClipPlus;
+	var badBot:Character;
+	var goodBot:Character;
 
     //var for the jump function
     var jump_tween:Tween;
@@ -83,6 +83,8 @@ class GameDriver extends Sprite {
 		assets.enqueue("assets/tutorialScreen.png");
 		assets.enqueue("assets/creditsScreen.png");
 		assets.enqueue("assets/gameScreen.png");
+		assets.enqueue("assets/gameoverScreen.png");
+		assets.enqueue("assets/gamewinScreen.png");
 		
 		// game font
 		assets.enqueue("assets/gameFont01.fnt");
@@ -100,6 +102,9 @@ class GameDriver extends Sprite {
 		assets.enqueue("assets/skythree.png");
 		assets.enqueue("assets/dirtBlock.png");
 		assets.enqueue("assets/cloud.png");
+		
+		// hero healthbar
+		assets.enqueue("assets/health_bar.png");
 		
 		// game sprite atlas
 		assets.enqueue("assets/sprite_atlas.xml");
@@ -211,13 +216,13 @@ class GameDriver extends Sprite {
 		addChild(gameTitleText);
 		
 		// Set and add start game button
-		startButton = installStartGameButton(415, 550);
+		startButton = installStartGameButton(920, 100);
 		addChild(startButton);
 		
-		tutorialButton = installTutorialButton(590, 550);
+		tutorialButton = installTutorialButton(920, 220);
 		addChild(tutorialButton);
 		
-		creditsButton = installCreditsButton(765, 550);
+		creditsButton = installCreditsButton(920, 340);
 		addChild(creditsButton);
 	}
 	
@@ -243,37 +248,32 @@ class GameDriver extends Sprite {
 		// Set and display game screen background
 		gameScreen = new Image(GameDriver.assets.getTexture("gameScreen"));
 		addChild(gameScreen);
-	
-		// Set and add mainMenu button
-		mainMenuButton = installMainMenuButton(590, 550);
-		addChild(mainMenuButton);
 
 		// Load tilemap
 		tmx = new Tilemap(GameDriver.assets, "levelone");
 		addChild(tmx);
-
-		// Set and display score
-		var scoreText:TextField = installText(0, 20, "Score:", "gameFont01", 45);
-		scoreText.x = 1000;
-		scoreText.y = 10;
-		addChild(scoreText);
+	
+		// Set and add mainMenu button
+		mainMenuButton = installMainMenuButton(15, 15);
+		addChild(mainMenuButton);
 		
 		// Set and add hero character
 		var atlas = GameDriver.assets.getTextureAtlas("sprite_atlas");
-		hero = new Character(1, atlas.getTextures("walking_guy"));
+		hero = new Character(1, atlas.getTextures("walking_guy"), this);
+		hero.setHealthBar(GameDriver.assets.getTexture("health_bar"));
 		hero.x = 20;
-		hero.y = 250;
+		hero.y = 300;
 		hero.makeStand();
         addChild(hero);
 		
 		// Set and add badbot character
-		badBot = new Character(2, atlas.getTextures("bad_bot"));
-		badBot.x = 200;
-		badBot.y = 268;
+		badBot = new Character(2, atlas.getTextures("bad_bot"), this);
+		badBot.x = 220;
+		badBot.y = 420;
         addChild(badBot);
 		
 		// Set and add goodbot character
-		goodBot = new Character(3, atlas.getTextures("good_bot"));
+		goodBot = new Character(3, atlas.getTextures("good_bot"), this);
 		goodBot.x = 400;
 		goodBot.y = 268;
         addChild(goodBot);
@@ -281,7 +281,6 @@ class GameDriver extends Sprite {
         // bounds for the bad bot and good bot
         var BadBotBound = badBot.bounds;
         var GoodBotBound = goodBot.bounds;
-
         
 	//onEnterFrame();
         
@@ -349,11 +348,13 @@ class GameDriver extends Sprite {
 				//if the hero hit the bad bot
             	if(checkCollision(hero, BadBotBound)){
        				hero.makeDizzy();
+					//hero.processBotCollision(badBot);
        			}
        			
        			//if the hero hit the good bot
-       			if(checkCollision(hero, GoodBotBound )){
-       				 removeChild(goodBot);
+       			if(checkCollision(hero, goodBot.bounds)){
+					hero.processBotCollision(goodBot);
+       				removeChild(goodBot, true);
        			}
        			
             	// check if the hero hit the bound
@@ -393,15 +394,17 @@ class GameDriver extends Sprite {
             if(event.keyCode == Keyboard.RIGHT){
             	hero.makeWalk();
             	hero.x += 10;
-            	
-            	//if the hero hit the bad bot
-            	if(checkCollision(hero, BadBotBound)){
+				
+				//if the hero hit the bad bot
+            	if(checkCollision(hero, badBot.bounds)){
        				hero.makeDizzy();
+					hero.processBotCollision(badBot);
        			}
        			
        			//if the hero hit the good bot
-       			if(checkCollision(hero, GoodBotBound )){
-       				 removeChild(goodBot);
+       			if(checkCollision(hero, goodBot.bounds)){
+					hero.processBotCollision(goodBot);
+       				removeChild(goodBot, true);
        			}
             	
             	//keep the hero on the ground
@@ -436,7 +439,36 @@ class GameDriver extends Sprite {
                 	hero.x -= 10;
                 }
         	}
-        	
+        	    if(event.keyCode == Keyboard.UP){
+        		//hero.y -= 10;
+        		
+        		Starling.juggler.tween(hero, 0.8, {
+                	transition: Transitions.EASE_OUT,
+					//transition: animation.Transitions.EASE_OUT,
+                		y: -50,
+                		repeatCount: 2,
+                		reverse: true
+                    });
+                    
+  
+                while(!checkCollision(hero, Bound1)||!checkCollision(hero, Bound2)||!checkCollision(hero, Bound2)||
+            	!checkCollision(hero, Bound3)||!checkCollision(hero, Bound4)||!checkCollision(hero, Bound5)||
+            	!checkCollision(hero, Bound6)||!checkCollision(hero, Bound7)||!checkCollision(hero, Bound8)||
+            	!checkCollision(hero, Bound9)||!checkCollision(hero, Bound10)||!checkCollision(hero, Bound11)||
+            	!checkCollision(hero, Bound12)||!checkCollision(hero, Bound13)||!checkCollision(hero, Bound14)||
+            	!checkCollision(hero, Bound15)||!checkCollision(hero, Bound16)||!checkCollision(hero, Bound17)||
+            	!checkCollision(hero, Bound18)||!checkCollision(hero, Bound19)){
+        			hero.y += 1;
+            		if(checkCollision(hero, Bound1)||checkCollision(hero, Bound2)||checkCollision(hero, Bound2)||
+            		checkCollision(hero, Bound3)||checkCollision(hero, Bound4)||checkCollision(hero, Bound5)||
+            		checkCollision(hero, Bound6)||checkCollision(hero, Bound7)||checkCollision(hero, Bound8)||
+            		checkCollision(hero, Bound9)||checkCollision(hero, Bound10)||checkCollision(hero, Bound11)||
+            		checkCollision(hero, Bound12)||checkCollision(hero, Bound13)||checkCollision(hero, Bound14)||
+            		checkCollision(hero, Bound15)||checkCollision(hero, Bound16)||checkCollision(hero, Bound17)||
+            		checkCollision(hero, Bound18)||checkCollision(hero, Bound19)){
+        				hero.y-= 1;
+        				break;
+        			}}}
 
             
             if(event.keyCode == Keyboard.DOWN){
@@ -474,10 +506,13 @@ class GameDriver extends Sprite {
 		addChild(titleText);
 		
 		// Set and display game designers
-		tutorialText += "This is how you play the game.\n";
-		tutorialText += "  1. Use the arrow keys to move the character and Space to jump.\n";
-		tutorialText += "  2. Collect the powerups along the way.\n";
-		tutorialText += "  3. Avoid death whenever possible.\n";
+		tutorialText += "How To Play:\n";
+		tutorialText += "  1. Use the arrow keys to move the hippie right and left.\n";
+		tutorialText += "  2. Press the up arrow to make the hippie jump.\n";
+		tutorialText += "  3. Collect the peace signs to increase the hippies score.\n";
+		tutorialText += "  4. Avoid touching the mushrooms, they will cause the hippie to lose health.\n";
+		tutorialText += "  5. If the hippie looses all of his health, he will die.\n";
+		tutorialText += "  6. Reach 20 points to win!\n";
 		
 		gameTutorialText = installText(100,200, tutorialText, "tutorialFont01", 25, "left", "bothDirections");
 		addChild(gameTutorialText);
@@ -506,7 +541,7 @@ class GameDriver extends Sprite {
 		addChild(titleText);
 		
 		// Set and display game designers
-		designerText += "Veronica Alves\n";
+		designerText += "Veronika Alves\n";
 		designerText += "Waylon Dixon\n";
 		designerText += "Kyle Granchelli\n";
 		designerText += "Matthew Ostovarpour\n";
@@ -521,13 +556,48 @@ class GameDriver extends Sprite {
 		return;
 	}
 	
+	/** Called when the game is over */
+	public function triggerGameOver(winGame:Bool) {
+		this.removeChildren();
+		startScreen();
+		
+		// local vars
+		var container = new Sprite();
+		var displayText:TextField = null;
+		var bg:Image;
+		
+		if (!winGame){
+			displayText = installText(470, 125, "You lose!", "creditsFont01", 65);
+			bg = new Image(assets.getTexture("gameoverScreen"));
+		} else {
+			displayText = installText(470, 125, "You Win!", "gameFont01", 65);
+			bg = new Image(assets.getTexture("gamewinScreen"));
+		}
+		
+		container.addChild(bg);
+		container.addChild(displayText);
+		addChild(container);
+		
+		Starling.juggler.tween(container, 2, {
+			transition: Transitions.EASE_OUT,
+			delay: 4,
+			alpha: 0,
+			onComplete: function(){
+				startScreen();
+			}
+		});
+		
+		return;
+	}
+	
 	/** Restart the game */
 	private function restartGame(){
 		this.removeChildren();
 		startGame();
 	}
 	
-	private function installText(x:Int, y:Int, myText:String, myFont:String, myFontsize:Int, myHAlign:String = "left", myAutoSize:String = "vertical") {
+	/** Install game text **/
+	public function installText(x:Int, y:Int, myText:String, myFont:String, myFontsize:Int, myHAlign:String = "left", myAutoSize:String = "vertical") {
 		// local vars
 		var gameText:TextField;
 		

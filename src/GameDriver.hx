@@ -1,4 +1,5 @@
 import starling.animation.Tween;
+import starling.animation.Juggler;
 import starling.animation.Transitions;
 import starling.display.MovieClip;
 import starling.textures.Texture;
@@ -62,6 +63,9 @@ class GameDriver extends Sprite {
 
     //var for the jump function
     var jump_tween:Tween;
+    var guy_juggler:Juggler;
+    var heroJumping:Image;
+    var currentGround:Float = 0;
 	
 	/** Constructor */
 	public function new() {
@@ -136,6 +140,10 @@ class GameDriver extends Sprite {
 		});
 	    
 	    /*
+	    guy_juggler = new Juggler();
+	    animate_guy();
+	    addEventListener(KeyboardEvent.SPACE, jump_listener);
+
 	    //Code for dat jumping goodness
 	    Transitions.register("jump", function(ratio:Float):Float
         {
@@ -178,8 +186,10 @@ class GameDriver extends Sprite {
     }
     private function animate_guy()
     {
-            hero.makeJump();
+            heroJumping = new Image(1, atlas.getTextures("jumping_guy"), this); 
             var delay = 2.0;
+            guy_juggler.purge();
+            for (i in 0
     }
     */
     
@@ -284,8 +294,7 @@ class GameDriver extends Sprite {
         
 	//onEnterFrame();
         
-        //Listen for jump input
-        var currentGround:Float = 0;
+        //Listen for jump input, this does not work
         /*
         Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, 
                         function(event:KeyboardEvent)
@@ -326,21 +335,6 @@ class GameDriver extends Sprite {
                         });
 		                */
 		
-		Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, function(event:KeyboardEvent)
-		{
-		        if (event.keyCode == Keyboard.SPACE)
-                {
-                        hero.makeJump();
-                        Starling.juggler.tween(hero, 0.8,
-                        {
-                                transition: Transitions.EASE_OUT,
-                                y: currentGround,
-                                repeatCount: 2,
-                                reverse: true
-                        });
-                        hero.makeStand();
-                }
-        });
 		// map boundaries 
 		//var Bound1 = new Rectangle(0,448, 1040, 272);
         var Bound1 = new Rectangle(0,478, 1040, 272);
@@ -392,7 +386,7 @@ class GameDriver extends Sprite {
             	checkCollision(hero, Bound15)||checkCollision(hero, Bound16)||checkCollision(hero, Bound17)||
             	checkCollision(hero, Bound18)||checkCollision(hero, Bound19)){
             		hero.x +=10;
-                    currentGround = hero.x;
+                    //TODO currentGround = hero.x;
 
                 }
                 
@@ -414,7 +408,7 @@ class GameDriver extends Sprite {
             	checkCollision(hero, Bound15)||checkCollision(hero, Bound16)||checkCollision(hero, Bound17)||
             	checkCollision(hero, Bound18)||checkCollision(hero, Bound19)){
         				hero.y-= 1;
-        			    currentGround = hero.y;
+        			    //TODO currentGround = hero.y;
         				break;
         			}
         		}
@@ -423,7 +417,7 @@ class GameDriver extends Sprite {
             if(event.keyCode == Keyboard.RIGHT){
             	hero.makeWalk();
             	hero.x += 10;
-        		currentGround = hero.x;
+        		//TODO currentGround = hero.x;
 				
 				//if the hero hit the bad bot
             	if(checkCollision(hero, badBot.bounds)){
@@ -446,7 +440,7 @@ class GameDriver extends Sprite {
             	!checkCollision(hero, Bound15)||!checkCollision(hero, Bound16)||!checkCollision(hero, Bound17)||
             	!checkCollision(hero, Bound18)||!checkCollision(hero, Bound19)){
         			hero.y += 1;
-        		    currentGround = hero.y;
+        		    //TODO currentGround = hero.y;
             	if(checkCollision(hero, Bound1)||checkCollision(hero, Bound2)||checkCollision(hero, Bound2)||
             	checkCollision(hero, Bound3)||checkCollision(hero, Bound4)||checkCollision(hero, Bound5)||
             	checkCollision(hero, Bound6)||checkCollision(hero, Bound7)||checkCollision(hero, Bound8)||
@@ -455,7 +449,7 @@ class GameDriver extends Sprite {
             	checkCollision(hero, Bound15)||checkCollision(hero, Bound16)||checkCollision(hero, Bound17)||
             	checkCollision(hero, Bound18)||checkCollision(hero, Bound19)){
         				hero.y-= 1;
-        		        currentGround = hero.y;
+        		        //TODO currentGround = hero.y;
         				break;
         			}
         		}
@@ -469,50 +463,55 @@ class GameDriver extends Sprite {
             	checkCollision(hero, Bound15)||checkCollision(hero, Bound16)||checkCollision(hero, Bound17)||
             	checkCollision(hero, Bound18)||checkCollision(hero, Bound19)){
                 	hero.x -= 10;
-        		    currentGround = hero.x;
+        		    //TODO currentGround = hero.x;
                 }
         	}
         	
-        	    if(event.keyCode == Keyboard.UP){
-        		//hero.y -= 10;
-        	    	
-        		/*
-        		Starling.juggler.tween(hero, 0.8, {
-                	transition: Transitions.EASE_OUT,
-					//transition: animation.Transitions.EASE_OUT,
-                		y: -50,
-                		repeatCount: 2,
-                		reverse: true
-                    });
-                    */
-                
-                    
-  
-                while(!checkCollision(hero, Bound1)||!checkCollision(hero, Bound2)||!checkCollision(hero, Bound2)||
-            	!checkCollision(hero, Bound3)||!checkCollision(hero, Bound4)||!checkCollision(hero, Bound5)||
-            	!checkCollision(hero, Bound6)||!checkCollision(hero, Bound7)||!checkCollision(hero, Bound8)||
-            	!checkCollision(hero, Bound9)||!checkCollision(hero, Bound10)||!checkCollision(hero, Bound11)||
-            	!checkCollision(hero, Bound12)||!checkCollision(hero, Bound13)||!checkCollision(hero, Bound14)||
-            	!checkCollision(hero, Bound15)||!checkCollision(hero, Bound16)||!checkCollision(hero, Bound17)||
-            	!checkCollision(hero, Bound18)||!checkCollision(hero, Bound19)){
-        			hero.y += 1;
-        		    currentGround = hero.y;
-            		if(checkCollision(hero, Bound1)||checkCollision(hero, Bound2)||checkCollision(hero, Bound2)||
-            		checkCollision(hero, Bound3)||checkCollision(hero, Bound4)||checkCollision(hero, Bound5)||
-            		checkCollision(hero, Bound6)||checkCollision(hero, Bound7)||checkCollision(hero, Bound8)||
-            		checkCollision(hero, Bound9)||checkCollision(hero, Bound10)||checkCollision(hero, Bound11)||
-            		checkCollision(hero, Bound12)||checkCollision(hero, Bound13)||checkCollision(hero, Bound14)||
-            		checkCollision(hero, Bound15)||checkCollision(hero, Bound16)||checkCollision(hero, Bound17)||
-            		checkCollision(hero, Bound18)||checkCollision(hero, Bound19)){
-        				hero.y-= 1;
-        		        currentGround = hero.y;
-        				break;
-        			}}}
+        	    if(event.keyCode == Keyboard.SPACE)
+        	    {
+        	            hero.makeJump();
+                        makeJump(); 
+                            
+                        while(!checkCollision(hero, Bound1)||!checkCollision(hero, Bound2)||!checkCollision(hero, Bound2)||
+                        !checkCollision(hero, Bound3)||!checkCollision(hero, Bound4)||!checkCollision(hero, Bound5)||
+                        !checkCollision(hero, Bound6)||!checkCollision(hero, Bound7)||!checkCollision(hero, Bound8)||
+                        !checkCollision(hero, Bound9)||!checkCollision(hero, Bound10)||!checkCollision(hero, Bound11)||
+                        !checkCollision(hero, Bound12)||!checkCollision(hero, Bound13)||!checkCollision(hero, Bound14)||
+                        !checkCollision(hero, Bound15)||!checkCollision(hero, Bound16)||!checkCollision(hero, Bound17)||
+                        !checkCollision(hero, Bound18)||!checkCollision(hero, Bound19))
+                        {
+                            hero.y += 1;
+                            //TODO currentGround = hero.y;
+                            if(checkCollision(hero, Bound1)||checkCollision(hero, Bound2)||checkCollision(hero, Bound2)||
+                            checkCollision(hero, Bound3)||checkCollision(hero, Bound4)||checkCollision(hero, Bound5)||
+                            checkCollision(hero, Bound6)||checkCollision(hero, Bound7)||checkCollision(hero, Bound8)||
+                            checkCollision(hero, Bound9)||checkCollision(hero, Bound10)||checkCollision(hero, Bound11)||
+                            checkCollision(hero, Bound12)||checkCollision(hero, Bound13)||checkCollision(hero, Bound14)||
+                            checkCollision(hero, Bound15)||checkCollision(hero, Bound16)||checkCollision(hero, Bound17)||
+                            checkCollision(hero, Bound18)||checkCollision(hero, Bound19))
+                            {
+                                hero.y-= 1;
+                                //TODO currentGround = hero.y;
+                                break;
+                            }
+                                //check if the hero hit the bounds 
+                                if(checkCollision(hero, Bound1)||checkCollision(hero, Bound2)||checkCollision(hero, Bound2)||
+                                checkCollision(hero, Bound3)||checkCollision(hero, Bound4)||checkCollision(hero, Bound5)||
+                                checkCollision(hero, Bound6)||checkCollision(hero, Bound7)||checkCollision(hero, Bound8)||
+                                checkCollision(hero, Bound9)||checkCollision(hero, Bound10)||checkCollision(hero, Bound11)||
+                                checkCollision(hero, Bound12)||checkCollision(hero, Bound13)||checkCollision(hero, Bound14)||
+                                checkCollision(hero, Bound15)||checkCollision(hero, Bound16)||checkCollision(hero, Bound17)||
+                                checkCollision(hero, Bound18)||checkCollision(hero, Bound19)){
+                                    hero.x -= 10;
+                                    //TODO currentGround = hero.x;
+                                }
+                        }
+        		}
 
             
             if(event.keyCode == Keyboard.DOWN){
             	hero.y += 10;
-        		currentGround = hero.y;
+        		//TODO currentGround = hero.y;
             	if(checkCollision(hero, Bound1)||checkCollision(hero, Bound2)||checkCollision(hero, Bound2)||
             	checkCollision(hero, Bound3)||checkCollision(hero, Bound4)||checkCollision(hero, Bound5)||
             	checkCollision(hero, Bound6)||checkCollision(hero, Bound7)||checkCollision(hero, Bound8)||
@@ -521,13 +520,32 @@ class GameDriver extends Sprite {
             	checkCollision(hero, Bound15)||checkCollision(hero, Bound16)||checkCollision(hero, Bound17)||
             	checkCollision(hero, Bound18)||checkCollision(hero, Bound19)){
                 	hero.y -= 10;
-        		    currentGround = hero.y;
+        		    //TODO currentGround = hero.y;
                 }
         	}
-            });
-			
+            }); 
 		return;
 	}
+
+	public function makeJump()
+    {
+
+		//Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, function(event:KeyboardEvent)
+		//{
+		        //if (event.keyCode == Keyboard.SPACE)
+                //{
+                        hero.makeJump();
+                        Starling.juggler.tween(hero, 0.8,
+                        {
+                                transition: Transitions.EASE_OUT,
+                                y: currentGround,
+                                repeatCount: 2,
+                                reverse: true
+                        });
+                        //hero.makeStand();
+                //}
+        //});
+    }
 
 	/** Display the rules menu */
 	private function viewTutorial() {

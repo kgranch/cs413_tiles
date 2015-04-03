@@ -481,6 +481,7 @@ class GameDriver extends Sprite {
                         !checkCollision(hero, Bound18)||!checkCollision(hero, Bound19))
                         {
                             hero.y += 1;
+                            updateGround(hero.y);
                             //TODO currentGround = hero.y;
                             if(checkCollision(hero, Bound1)||checkCollision(hero, Bound2)||checkCollision(hero, Bound2)||
                             checkCollision(hero, Bound3)||checkCollision(hero, Bound4)||checkCollision(hero, Bound5)||
@@ -491,6 +492,7 @@ class GameDriver extends Sprite {
                             checkCollision(hero, Bound18)||checkCollision(hero, Bound19))
                             {
                                 hero.y-= 1;
+                                updateGround(hero.y);
                                 //TODO currentGround = hero.y;
                                 break;
                             }
@@ -503,6 +505,7 @@ class GameDriver extends Sprite {
                                 checkCollision(hero, Bound15)||checkCollision(hero, Bound16)||checkCollision(hero, Bound17)||
                                 checkCollision(hero, Bound18)||checkCollision(hero, Bound19)){
                                     hero.x -= 10;
+                                    updateGround(hero.y);
                                     //TODO currentGround = hero.x;
                                 }
                         }
@@ -527,6 +530,10 @@ class GameDriver extends Sprite {
 		return;
 	}
 
+    public function updateGround(bound:Float)
+    {
+            currentGround = bound;
+    }
 	public function makeJump()
     {
 

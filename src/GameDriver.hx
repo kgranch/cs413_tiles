@@ -193,25 +193,31 @@ class GameDriver extends Sprite {
     }
     */
     
-    
-	/**Camera scrolling functions
-	private function onEnterFrame(event:EnterFrameEvent):void
+    	//Camera scrolling functions
+	private function moveStage()
 	{
-		world.x = - hero.x + (stage.stageWidth/2);
-		world.y = - hero.y + (stage.stageHeight/2);
+		var shiftStage:Tilemap = tmx;
+		var shiftBad = badBot;
+		var shiftGood = goodBot;
+			
+		shiftStage.x = hero.x + 100;
+		shiftBad.x = badBot.x + shiftStage.x;
+		shiftGood.x += goodBot.x + shiftStage.x;
+		shiftStage.y = hero.y + 75;
+		shiftBad.y += badBot.y + shiftStage.x;
+		shiftGood.y += goodBot.x + shiftStage.x;
   
 		//Travel Limits
 	
-		var ox = stage.stageWidth/2;
-		var oy = stage.stageHeight/2;
+		//var ox = stage.stageWidth/2;
+		//var oy = stage.stageHeight/2;
 		
-		var maxworld;
+		//var maxworld;
 	
-		maxworld.x = -min(max(hero.x * world.scaleX, ox), 1280 - ox) + stage.stageWidth/2;
+		//maxworld.x = -min(max(hero.x * world.scaleX, ox), 1280 - ox) + stage.stageWidth/2;
 	
-		maxworld.y = -min(max(hero.y * world.scaleY, oy), 720 - oy) + stage.stageHeight/2;
+		//maxworld.y = -min(max(hero.y * world.scaleY, oy), 720 - oy) + stage.stageHeight/2;
 	}
-	**/
 
 	/** Do stuff with the menu screen */
 	private function startScreen() {
@@ -549,6 +555,7 @@ class GameDriver extends Sprite {
                                 repeatCount: 2,
                                 reverse: true
                         });
+                        moveStage();
                         //hero.makeStand();
                 //}
         //});

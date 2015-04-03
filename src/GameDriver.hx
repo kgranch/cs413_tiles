@@ -194,19 +194,18 @@ class GameDriver extends Sprite {
     */
     
     	//Camera scrolling functions
-	private function moveStage(xcoord:Float, ycoord:Float)
+	private function moveStage()
 	{
 		var shiftStage:Tilemap = tmx;
 		var shiftBad = badBot;
 		var shiftGood = goodBot;
 			
-			
-		shiftStage.x = -xcoord;
-		shiftBad.x += shiftStage.x;
-		shiftGood.x += shiftStage.x;
-		shiftStage.y = -ycoord;
-		shiftBad.y += shiftStage.y;
-		shiftGood.y += shiftStage.y;
+		shiftStage.x = hero.x + 100;
+		shiftBad.x = badBot.x + shiftStage.x;
+		shiftGood.x += goodBot.x + shiftStage.x;
+		shiftStage.y = hero.y + 75;
+		shiftBad.y += badBot.y + shiftStage.x;
+		shiftGood.y += goodBot.x + shiftStage.x;
   
 		//Travel Limits
 	
@@ -290,14 +289,41 @@ class GameDriver extends Sprite {
         addChild(badBot);
 		
 		// Set and add goodbot character
-		goodBot = new Character(3, atlas.getTextures("good_bot"), this);
-		goodBot.x = 400;
+		var goodBot2 = new Character(3, atlas.getTextures("good_bot"), this);
+		goodBot2.x = 400;
+		goodBot2.y = 268;
+        addChild(goodBot2);
+        
+        
+        
+        goodBot = new Character(3, atlas.getTextures("good_bot"), this);
+		goodBot.x = 800;
 		goodBot.y = 268;
         addChild(goodBot);
+        
+        var goodBot3 = new Character(3, atlas.getTextures("good_bot"), this);
+		goodBot3.x = 900;
+		goodBot3.y = 268;
+        addChild(goodBot3);
+        
+        var goodBot4 = new Character(3, atlas.getTextures("good_bot"), this);
+		goodBot4.x = 1000;
+		goodBot4.y = 268;
+        addChild(goodBot4);
+        
+        var goodBot5 = new Character(3, atlas.getTextures("good_bot"), this);
+		goodBot5.x = 1000;
+		goodBot5.y = 268;
+        addChild(goodBot5);
         
         // bounds for the bad bot and good bot
         var BadBotBound = badBot.bounds;
         var GoodBotBound = goodBot.bounds;
+        var heroBound = hero.bounds;
+        var GoodBotBound2 = goodBot2.bounds;
+        var GoodBotBound3 = goodBot3.bounds;
+        var GoodBotBound4 = goodBot4.bounds;
+        var GoodBotBound5 = goodBot5.bounds;
         
 	//onEnterFrame();
         
@@ -370,16 +396,47 @@ class GameDriver extends Sprite {
             if(event.keyCode == Keyboard.LEFT){
             	hero.makeWalk();
             	hero.x -= 10;
+            	
+            	        		Bound1.x += 10;
+        		// var Bound2 = new Rectangle(192,446, 848, 32);
+       			Bound2.x += 10;
+        		Bound3.x += 10;
+        		Bound4.x += 10;
+        		Bound5.x += 10;
+        		Bound6.x += 10;
+        		Bound7.x += 10;
+        		Bound8.x += 10;
+        		Bound9.x += 10;
+        		Bound10.x += 10;
+        		Bound12.x += 10;
+        		Bound13.x += 10;
+        		Bound14.x += 10;
+        		Bound15.x += 10;
+        		Bound16.x += 10;
+        		Bound17.x += 10;
+        		Bound18.x += 10;
+        		Bound19.x += 10;
+        		GoodBotBound.x += 10;
+        		BadBotBound.x += 10;   
+        		goodBot.x +=10;
+        		badBot.x += 10;     
+
+        		
             	//TODO currentGround = hero.x;
 				
 				//if the hero hit the bad bot
             	if(checkCollision(hero, BadBotBound)){
        				hero.makeDizzy();
+       				removeChild(badBot, true);
+       				BadBotBound.x = 0;
+       				BadBotBound.y = 0;
+       				
+       				
 					//hero.processBotCollision(badBot);
        			}
        			
        			//if the hero hit the good bot
-       			if(checkCollision(hero, goodBot.bounds)){
+       			if(checkCollision(hero, GoodBotBound)){
 					hero.processBotCollision(goodBot);
        				removeChild(goodBot, true);
        			}
@@ -419,24 +476,85 @@ class GameDriver extends Sprite {
         				break;
         			}
         		}
-        	moveStage(hero.x, hero.y);
             }
                         		
             if(event.keyCode == Keyboard.RIGHT){
             	hero.makeWalk();
             	hero.x += 10;
-        		//TODO currentGround = hero.x;
-				
+            	        		Bound1.x -= 10;
+        		// var Bound2 = new Rectangle(192,446, 848, 32);
+       			Bound2.x -= 10;
+        		Bound3.x -= 10;
+        		Bound4.x -= 10;
+        		Bound5.x -= 10;
+        		Bound6.x -= 10;
+        		Bound7.x -= 10;
+        		Bound8.x -= 10;
+        		Bound9.x -= 10;
+        		Bound10.x -= 10;
+        		Bound12.x -= 10;
+        		Bound13.x -= 10;
+        		Bound14.x -= 10;
+        		Bound15.x -= 10;
+        		Bound16.x -= 10;
+        		Bound17.x -= 10;
+        		Bound18.x -= 10;
+        		Bound19.x -= 10;
+        		GoodBotBound.x -= 10;
+        		BadBotBound.x -= 10; 
+        		goodBot.x -= 10;
+        		badBot.x -= 10;       	
+        		GoodBotBound2.x -= 10;
+        		goodBot2.x -=10;
+        		GoodBotBound3.x -= 10;
+        		goodBot3.x -=10;
+        		GoodBotBound4.x -= 10;
+        		goodBot4.x -=10;
+        		GoodBotBound5.x -= 10;
+        		goodBot5.x -=10;
+            	
 				//if the hero hit the bad bot
-            	if(checkCollision(hero, badBot.bounds)){
+            	if(checkCollision(hero, BadBotBound)){
        				hero.makeDizzy();
+       				removeChild(badBot, true);
+       				BadBotBound.x = 0;
+       				BadBotBound.y = 0;
 					hero.processBotCollision(badBot);
        			}
        			
        			//if the hero hit the good bot
-       			if(checkCollision(hero, goodBot.bounds)){
+       			if(checkCollision(hero, GoodBotBound)){
 					hero.processBotCollision(goodBot);
+					GoodBotBound.x =0;
+					GoodBotBound.y=0;
        				removeChild(goodBot, true);
+       			}
+       			
+       			 if(checkCollision(hero, GoodBotBound2)){
+					hero.processBotCollision(goodBot2);
+					GoodBotBound2.x =0;
+					GoodBotBound2.y=0;
+       				removeChild(goodBot2, true);
+       			}
+       			
+       			 if(checkCollision(hero, GoodBotBound3)){
+					hero.processBotCollision(goodBot3);
+					GoodBotBound3.x =0;
+					GoodBotBound3.y=0;
+       				removeChild(goodBot3, true);
+       			}
+       			
+       			 if(checkCollision(hero, GoodBotBound4)){
+					hero.processBotCollision(goodBot4);
+					GoodBotBound4.x =0;
+					GoodBotBound4.y=0;
+       				removeChild(goodBot4, true);
+       			}
+       			 if(checkCollision(hero, GoodBotBound5)){
+					hero.processBotCollision(goodBot5);
+					GoodBotBound5.x =0;
+					GoodBotBound5.y=0;
+       				removeChild(goodBot5, true);
        			}
             	
             	//keep the hero on the ground
@@ -473,9 +591,38 @@ class GameDriver extends Sprite {
                 	hero.x -= 10;
         		    //TODO currentGround = hero.x;
                 }
-                
-                        moveStage(hero.x, hero.y);
         	}
+        	
+        	if(event.keyCode == Keyboard.UP){
+        		//hero.y -= 10;
+        		
+        		Starling.juggler.tween(hero, 0.8, {
+                	transition: Transitions.EASE_OUT,
+					//transition: animation.Transitions.EASE_OUT,
+                		y: -50,
+                		repeatCount: 2,
+                		reverse: true
+                    });
+                    
+  
+                while(!checkCollision(hero, Bound1)||!checkCollision(hero, Bound2)||!checkCollision(hero, Bound2)||
+            	!checkCollision(hero, Bound3)||!checkCollision(hero, Bound4)||!checkCollision(hero, Bound5)||
+            	!checkCollision(hero, Bound6)||!checkCollision(hero, Bound7)||!checkCollision(hero, Bound8)||
+            	!checkCollision(hero, Bound9)||!checkCollision(hero, Bound10)||!checkCollision(hero, Bound11)||
+            	!checkCollision(hero, Bound12)||!checkCollision(hero, Bound13)||!checkCollision(hero, Bound14)||
+            	!checkCollision(hero, Bound15)||!checkCollision(hero, Bound16)||!checkCollision(hero, Bound17)||
+            	!checkCollision(hero, Bound18)||!checkCollision(hero, Bound19)){
+        			hero.y += 1;
+            		if(checkCollision(hero, Bound1)||checkCollision(hero, Bound2)||checkCollision(hero, Bound2)||
+            		checkCollision(hero, Bound3)||checkCollision(hero, Bound4)||checkCollision(hero, Bound5)||
+            		checkCollision(hero, Bound6)||checkCollision(hero, Bound7)||checkCollision(hero, Bound8)||
+            		checkCollision(hero, Bound9)||checkCollision(hero, Bound10)||checkCollision(hero, Bound11)||
+            		checkCollision(hero, Bound12)||checkCollision(hero, Bound13)||checkCollision(hero, Bound14)||
+            		checkCollision(hero, Bound15)||checkCollision(hero, Bound16)||checkCollision(hero, Bound17)||
+            		checkCollision(hero, Bound18)||checkCollision(hero, Bound19)){
+        				hero.y-= 1;
+        				break;
+        			}}}
         	
         	    if(event.keyCode == Keyboard.SPACE)
         	    {
@@ -537,6 +684,10 @@ class GameDriver extends Sprite {
                 }
         	}
             }); 
+            
+            
+            stage.addEventListener(Event.ENTER_FRAME, movecam);
+            
 		return;
 	}
 
@@ -546,6 +697,8 @@ class GameDriver extends Sprite {
     }
 	public function makeJump()
     {
+    
+
 
 		//Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, function(event:KeyboardEvent)
 		//{
@@ -559,7 +712,7 @@ class GameDriver extends Sprite {
                                 repeatCount: 2,
                                 reverse: true
                         });
-                        moveStage(hero.x, hero.y);
+                       // moveStage();
                         //hero.makeStand();
                 //}
         //});
@@ -760,7 +913,34 @@ class GameDriver extends Sprite {
     private function checkCollision(texture1:Image, texture2:Rectangle):Bool {
         return (texture1.bounds.intersects(texture2));
     }
+    
+    
+	private function movecam(event:Event){
+	var heroS:Float = hero.x;
+	var cam:Rectangle = new Rectangle(30,446, 1000, 32);
+          var cameraX:Float = heroS;
 
+	var ox = stage.stage.width/2 ;
+	//
+	//3216/2
+	//hero.x =  -(Math.min(Math.max((cam.x)* tmx.scaleX, ox), cameraX*2 - 3000) + (stage.stage.width/2))+140;
+	
+	//world.x = -min(max(camera.x * world.scaleX, oX), world.Width - ox) + (stage.stage.Width/2)
+	
+	tmx.x = -(Math.min(Math.max((hero.x), ox), tmx.width - ox) )+ (stage.stage.width/2);
+	tmx.x = -(hero.x - 20);
+	//if(hero.x >= 1080){
+	//	tmx.x = -(Math.min(Math.max(cam.x * tmx.scaleX, ox), cameraX - 2300) + 3216);
+	//	hero.scaleX=1080;
+	//	hero.makeDizzy();
+	//}
+	//world.x = -(Math.min(Math.max(hero.x * tmx.scaleX, ox), cameraX- ox) + (stage.stage.width/2));
+	//worldy = -(Math.min(Math.max(cameraY * tmx.scaleY, oy), 0 - oy) + (stage.stage.height/2));
+	
+	
+	
+	
+	}
     
 
 }

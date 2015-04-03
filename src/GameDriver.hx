@@ -219,13 +219,13 @@ class GameDriver extends Sprite {
 		addChild(gameTitleText);
 		
 		// Set and add start game button
-		startButton = installStartGameButton(415, 550);
+		startButton = installStartGameButton(920, 100);
 		addChild(startButton);
 		
-		tutorialButton = installTutorialButton(590, 550);
+		tutorialButton = installTutorialButton(920, 220);
 		addChild(tutorialButton);
 		
-		creditsButton = installCreditsButton(765, 550);
+		creditsButton = installCreditsButton(920, 340);
 		addChild(creditsButton);
 	}
 	

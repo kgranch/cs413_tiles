@@ -507,10 +507,13 @@ class GameDriver extends Sprite {
 		addChild(titleText);
 		
 		// Set and display game designers
-		tutorialText += "This is how you play the game.\n";
-		tutorialText += "  1. Use the arrow keys to move the character and Space to jump.\n";
-		tutorialText += "  2. Collect the powerups along the way.\n";
-		tutorialText += "  3. Avoid death whenever possible.\n";
+		tutorialText += "How To Play:\n";
+		tutorialText += "  1. Use the arrow keys to move the hippie right and left.\n";
+		tutorialText += "  2. Press the up arrow to make the hippie jump.\n";
+		tutorialText += "  3. Collect the peace signs to increase the hippies score.\n";
+		tutorialText += "  4. Avoid touching the mushrooms, they will cause the hippie to lose health.\n";
+		tutorialText += "  5. If the hippie looses all of his health, he will die.\n";
+		tutorialText += "  6. Reach 20 points to win!\n";
 		
 		gameTutorialText = installText(100,200, tutorialText, "tutorialFont01", 25, "left", "bothDirections");
 		addChild(gameTutorialText);
@@ -539,7 +542,7 @@ class GameDriver extends Sprite {
 		addChild(titleText);
 		
 		// Set and display game designers
-		designerText += "Veronica Alves\n";
+		designerText += "Veronika Alves\n";
 		designerText += "Waylon Dixon\n";
 		designerText += "Kyle Granchelli\n";
 		designerText += "Matthew Ostovarpour\n";

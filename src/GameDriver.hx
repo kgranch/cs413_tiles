@@ -194,18 +194,19 @@ class GameDriver extends Sprite {
     */
     
     	//Camera scrolling functions
-	private function moveStage()
+	private function moveStage(xcoord:Float, ycoord:Float)
 	{
 		var shiftStage:Tilemap = tmx;
 		var shiftBad = badBot;
 		var shiftGood = goodBot;
 			
-		shiftStage.x = hero.x + 100;
-		shiftBad.x = badBot.x + shiftStage.x;
-		shiftGood.x += goodBot.x + shiftStage.x;
-		shiftStage.y = hero.y + 75;
-		shiftBad.y += badBot.y + shiftStage.x;
-		shiftGood.y += goodBot.x + shiftStage.x;
+			
+		shiftStage.x = -xcoord;
+		shiftBad.x += shiftStage.x;
+		shiftGood.x += shiftStage.x;
+		shiftStage.y = -ycoord;
+		shiftBad.y += shiftStage.y;
+		shiftGood.y += shiftStage.y;
   
 		//Travel Limits
 	
@@ -418,6 +419,7 @@ class GameDriver extends Sprite {
         				break;
         			}
         		}
+        	moveStage(hero.x, hero.y);
             }
                         		
             if(event.keyCode == Keyboard.RIGHT){
@@ -471,6 +473,8 @@ class GameDriver extends Sprite {
                 	hero.x -= 10;
         		    //TODO currentGround = hero.x;
                 }
+                
+                        moveStage(hero.x, hero.y);
         	}
         	
         	    if(event.keyCode == Keyboard.SPACE)
@@ -555,7 +559,7 @@ class GameDriver extends Sprite {
                                 repeatCount: 2,
                                 reverse: true
                         });
-                        moveStage();
+                        moveStage(hero.x, hero.y);
                         //hero.makeStand();
                 //}
         //});

@@ -285,6 +285,8 @@ class GameDriver extends Sprite {
 	//onEnterFrame();
         
         //Listen for jump input
+        var currentGround:Float = 0;
+        /*
         Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, 
                         function(event:KeyboardEvent)
                         {
@@ -297,11 +299,18 @@ class GameDriver extends Sprite {
                                         var jumpSound = assets.playSound("Jump.mp3", 150);
                                         var heroTween = new Tween(hero, travelTime);
                                         heroTween.delay = 0.0;
-                                        heroTween.animate("y", 10);
+                                        heroTween.animate("y", 100);
                                         heroTween.onComplete = function()
                                         {
-                                                removeChild(hero);
-                                                //hero.makeStand();
+                                                Starling.juggler.tween(hero, 0.5, 
+                                                {
+                                                        transition: Transitions.EASE_OUT,
+                                                        y: currentGround,
+                                                        repeatCount: 1,
+                                                        reverse: true
+                                                });
+                                                //removeChild(hero);
+                                                hero.makeStand();
                                         }
                                         var heroTween2 = new Tween(hero, travelTime);
                                         heroTween2.delay = 0.0;
@@ -312,10 +321,26 @@ class GameDriver extends Sprite {
                                                 hero.makeStand;
                                         }
                                         Starling.juggler.add(heroTween);
-                                        Starling.juggler.add(heroTween2);
+                                        //Starling.juggler.add(heroTween2);
                                 }
                         });
+		                */
 		
+		Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, function(event:KeyboardEvent)
+		{
+		        if (event.keyCode == Keyboard.SPACE)
+                {
+                        hero.makeJump();
+                        Starling.juggler.tween(hero, 0.8,
+                        {
+                                transition: Transitions.EASE_OUT,
+                                y: currentGround,
+                                repeatCount: 2,
+                                reverse: true
+                        });
+                        hero.makeStand();
+                }
+        });
 		// map boundaries 
 		//var Bound1 = new Rectangle(0,448, 1040, 272);
         var Bound1 = new Rectangle(0,478, 1040, 272);
@@ -344,6 +369,7 @@ class GameDriver extends Sprite {
             if(event.keyCode == Keyboard.LEFT){
             	hero.makeWalk();
             	hero.x -= 10;
+            	//TODO currentGround = hero.x;
 				
 				//if the hero hit the bad bot
             	if(checkCollision(hero, BadBotBound)){
@@ -366,6 +392,7 @@ class GameDriver extends Sprite {
             	checkCollision(hero, Bound15)||checkCollision(hero, Bound16)||checkCollision(hero, Bound17)||
             	checkCollision(hero, Bound18)||checkCollision(hero, Bound19)){
             		hero.x +=10;
+                    currentGround = hero.x;
 
                 }
                 
@@ -378,6 +405,7 @@ class GameDriver extends Sprite {
             	!checkCollision(hero, Bound15)||!checkCollision(hero, Bound16)||!checkCollision(hero, Bound17)||
             	!checkCollision(hero, Bound18)||!checkCollision(hero, Bound19)){
         			hero.y += 1;
+        			currentGround = hero.x;
             	if(checkCollision(hero, Bound1)||checkCollision(hero, Bound2)||checkCollision(hero, Bound2)||
             	checkCollision(hero, Bound3)||checkCollision(hero, Bound4)||checkCollision(hero, Bound5)||
             	checkCollision(hero, Bound6)||checkCollision(hero, Bound7)||checkCollision(hero, Bound8)||
@@ -386,6 +414,7 @@ class GameDriver extends Sprite {
             	checkCollision(hero, Bound15)||checkCollision(hero, Bound16)||checkCollision(hero, Bound17)||
             	checkCollision(hero, Bound18)||checkCollision(hero, Bound19)){
         				hero.y-= 1;
+        			    currentGround = hero.y;
         				break;
         			}
         		}
@@ -394,6 +423,7 @@ class GameDriver extends Sprite {
             if(event.keyCode == Keyboard.RIGHT){
             	hero.makeWalk();
             	hero.x += 10;
+        		currentGround = hero.x;
 				
 				//if the hero hit the bad bot
             	if(checkCollision(hero, badBot.bounds)){
@@ -416,6 +446,7 @@ class GameDriver extends Sprite {
             	!checkCollision(hero, Bound15)||!checkCollision(hero, Bound16)||!checkCollision(hero, Bound17)||
             	!checkCollision(hero, Bound18)||!checkCollision(hero, Bound19)){
         			hero.y += 1;
+        		    currentGround = hero.y;
             	if(checkCollision(hero, Bound1)||checkCollision(hero, Bound2)||checkCollision(hero, Bound2)||
             	checkCollision(hero, Bound3)||checkCollision(hero, Bound4)||checkCollision(hero, Bound5)||
             	checkCollision(hero, Bound6)||checkCollision(hero, Bound7)||checkCollision(hero, Bound8)||
@@ -424,6 +455,7 @@ class GameDriver extends Sprite {
             	checkCollision(hero, Bound15)||checkCollision(hero, Bound16)||checkCollision(hero, Bound17)||
             	checkCollision(hero, Bound18)||checkCollision(hero, Bound19)){
         				hero.y-= 1;
+        		        currentGround = hero.y;
         				break;
         			}
         		}
@@ -437,11 +469,14 @@ class GameDriver extends Sprite {
             	checkCollision(hero, Bound15)||checkCollision(hero, Bound16)||checkCollision(hero, Bound17)||
             	checkCollision(hero, Bound18)||checkCollision(hero, Bound19)){
                 	hero.x -= 10;
+        		    currentGround = hero.x;
                 }
         	}
+        	
         	    if(event.keyCode == Keyboard.UP){
         		//hero.y -= 10;
-        		
+        	    	
+        		/*
         		Starling.juggler.tween(hero, 0.8, {
                 	transition: Transitions.EASE_OUT,
 					//transition: animation.Transitions.EASE_OUT,
@@ -449,6 +484,8 @@ class GameDriver extends Sprite {
                 		repeatCount: 2,
                 		reverse: true
                     });
+                    */
+                
                     
   
                 while(!checkCollision(hero, Bound1)||!checkCollision(hero, Bound2)||!checkCollision(hero, Bound2)||
@@ -459,6 +496,7 @@ class GameDriver extends Sprite {
             	!checkCollision(hero, Bound15)||!checkCollision(hero, Bound16)||!checkCollision(hero, Bound17)||
             	!checkCollision(hero, Bound18)||!checkCollision(hero, Bound19)){
         			hero.y += 1;
+        		    currentGround = hero.y;
             		if(checkCollision(hero, Bound1)||checkCollision(hero, Bound2)||checkCollision(hero, Bound2)||
             		checkCollision(hero, Bound3)||checkCollision(hero, Bound4)||checkCollision(hero, Bound5)||
             		checkCollision(hero, Bound6)||checkCollision(hero, Bound7)||checkCollision(hero, Bound8)||
@@ -467,12 +505,14 @@ class GameDriver extends Sprite {
             		checkCollision(hero, Bound15)||checkCollision(hero, Bound16)||checkCollision(hero, Bound17)||
             		checkCollision(hero, Bound18)||checkCollision(hero, Bound19)){
         				hero.y-= 1;
+        		        currentGround = hero.y;
         				break;
         			}}}
 
             
             if(event.keyCode == Keyboard.DOWN){
             	hero.y += 10;
+        		currentGround = hero.y;
             	if(checkCollision(hero, Bound1)||checkCollision(hero, Bound2)||checkCollision(hero, Bound2)||
             	checkCollision(hero, Bound3)||checkCollision(hero, Bound4)||checkCollision(hero, Bound5)||
             	checkCollision(hero, Bound6)||checkCollision(hero, Bound7)||checkCollision(hero, Bound8)||
@@ -481,6 +521,7 @@ class GameDriver extends Sprite {
             	checkCollision(hero, Bound15)||checkCollision(hero, Bound16)||checkCollision(hero, Bound17)||
             	checkCollision(hero, Bound18)||checkCollision(hero, Bound19)){
                 	hero.y -= 10;
+        		    currentGround = hero.y;
                 }
         	}
             });
